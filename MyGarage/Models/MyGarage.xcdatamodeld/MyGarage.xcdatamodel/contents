@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Car" representedClassName="Car" syncable="YES" codeGenerationType="class">
+        <attribute name="keySave" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="masivPropertys" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="number" optional="YES" attributeType="String"/>
+        <attribute name="subName" optional="YES" attributeType="String"/>
+        <relationship name="carDetail" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CarDetail" inverseName="masivCarProperty" inverseEntity="CarDetail"/>
+    </entity>
+    <entity name="CarDetail" representedClassName="CarDetail" syncable="YES" codeGenerationType="class">
+        <attribute name="dateOfBirth" optional="YES" attributeType="String"/>
+        <attribute name="propertyCar" optional="YES" attributeType="String"/>
+        <relationship name="masivCarProperty" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="carDetail" inverseEntity="Car"/>
+    </entity>
+    <entity name="ChoicePart" representedClassName="ChoicePart" syncable="YES" codeGenerationType="class">
+        <attribute name="count" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="String"/>
+        <attribute name="seller" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="ForSaveChoicePart" representedClassName="ForSaveChoicePart" syncable="YES" codeGenerationType="class">
+        <attribute name="count" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="String"/>
+        <attribute name="seller" optional="YES" attributeType="String"/>
+        <relationship name="masivChoisePart" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MasivChoiceParts" inverseName="forSaveCP" inverseEntity="MasivChoiceParts"/>
+    </entity>
+    <entity name="KeyForParse" representedClassName="KeyForParse" syncable="YES" codeGenerationType="class">
+        <attribute name="key" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MasivChoiceParts" representedClassName="MasivChoiceParts" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreation" optional="YES" attributeType="String"/>
+        <attribute name="expanded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="forSaveCP" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ForSaveChoicePart" inverseName="masivChoisePart" inverseEntity="ForSaveChoicePart"/>
+    </entity>
+    <elements>
+        <element name="Car" positionX="-412.3125" positionY="-152.08984375" width="128" height="133"/>
+        <element name="CarDetail" positionX="-222.55078125" positionY="-107.296875" width="128" height="88"/>
+        <element name="ChoicePart" positionX="75.5390625" positionY="-118.09375" width="128" height="103"/>
+        <element name="ForSaveChoicePart" positionX="-192.03125" positionY="77.734375" width="128" height="118"/>
+        <element name="KeyForParse" positionX="72.2109375" positionY="43.7421875" width="128" height="58"/>
+        <element name="MasivChoiceParts" positionX="-411.66796875" positionY="107.359375" width="128" height="88"/>
+    </elements>
+</model>
