@@ -10,23 +10,26 @@ import Foundation
 import UIKit
 import Parse
 
+// https://www.linkedin.com/pulse/uicollectionviewdiffabledatasource-decodable-james-rochabrun
+
 protocol ViewLIneProtocol: class {
     func moveLine(tag: Int)
 }
 
 class PartsViewController: UIViewController, MenuVCProtocol {
 
-    private var categoryCollectionView: UICollectionView?
     private var categoryMasiv = [String]()
-    
-    private var partCollectionView: UICollectionView?
+    weak var delegate: MenuVCProtocol?
+    private var sideMenuTableView: MenuViewTab!
+    private var collectionView: UICollectionView!
+    var dataSource: UICollectionViewDiffableDataSource<MSection, MPart>?
     private var partMasiv = [String]()
     private var filtredPartMasiv = [String]()
     private var items = [UIBarButtonItem]()
+    private lazy var slideInMenuPading: CGFloat = self.view.frame.width * 0.30
+    private var isSlideInMenuPresented = false
 
     var cart: BadgeButtonItem?
-//    weak var delegate: ViewLIneProtocol?
-//    let tagLine = 0
     var countPart = 0
     
     private var searchBarIsEmpty: Bool {
@@ -119,7 +122,7 @@ class PartsViewController: UIViewController, MenuVCProtocol {
          view.translatesAutoresizingMaskIntoConstraints = false
          return view
      }()
-     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -128,7 +131,12 @@ class PartsViewController: UIViewController, MenuVCProtocol {
         if currentUserConst != nil {
             self.setupInit()
             self.partMasiv = partsNames[0]
-            self.addColection()
+//            self.addColection()
+            view.backgroundColor = .systemGroupedBackground
+//            bgImageView.frame = view.frame
+//            self.view.addSubview(bgImageView)
+            
+            self.setupCollectionView()
             self.setupNavigationBarButton()
             
             // Setup the Seatch Controller
@@ -148,7 +156,6 @@ class PartsViewController: UIViewController, MenuVCProtocol {
         DispatchQueue.global(qos: .utility).async {
                    HelperMethods.shared.newMonth()
                }
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -172,88 +179,63 @@ class PartsViewController: UIViewController, MenuVCProtocol {
         self.categoryMasiv = categoriParts
     }
     
-    private func addColection() {
-        
-        let layout1: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout1.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-        layout1.itemSize = CGSize(width: self.view.frame.width / 4, height: self.view.frame.width / 4)
-        layout1.scrollDirection = .horizontal
-        
-        let rect1 = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 80)
-        categoryCollectionView = UICollectionView(frame: rect1, collectionViewLayout: layout1)
-        categoryCollectionView!.dataSource = self
-        categoryCollectionView!.delegate = self
-        categoryCollectionView!.backgroundColor = UIColor.clear
-        categoryCollectionView?.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(categoryCollectionView!)
-        categoryCollectionView?.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        categoryCollectionView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        categoryCollectionView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        categoryCollectionView?.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        categoryCollectionView?.register(FirstCell.self, forCellWithReuseIdentifier: FirstCell.reuseId)
-        categoryCollectionView?.showsHorizontalScrollIndicator = false
-        
-        let layout2: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout2.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-        layout2.itemSize = CGSize(width: self.view.frame.width / 3 - 4, height: self.view.frame.width / 3 - 4 )
-        layout2.minimumLineSpacing = 4
-        layout2.minimumInteritemSpacing = 4
-        
-        let rect2 = CGRect(x: 0, y: 260, width: self.view.frame.width, height: self.view.frame.height - 350)
-        partCollectionView = UICollectionView(frame: rect2, collectionViewLayout: layout2)
-        partCollectionView!.dataSource = self
-        partCollectionView!.delegate = self
-        partCollectionView!.backgroundColor = UIColor.clear
-        partCollectionView?.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(partCollectionView!)
-        partCollectionView?.topAnchor.constraint(equalTo: self.categoryCollectionView!.bottomAnchor, constant: 10).isActive = true
-        partCollectionView?.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        partCollectionView?.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        partCollectionView?.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        partCollectionView?.register(SecondCell.self, forCellWithReuseIdentifier: SecondCell.reuseId)
-        partCollectionView?.showsVerticalScrollIndicator = false
-        
-        let color1 = UIColor.init(red: 0.921, green: 0.921, blue: 0.921, alpha: 1)
-        let color2 = UIColor.init(red: 0.998, green: 1, blue: 1, alpha: 1)
-        let color3 = UIColor.init(red: 0.921, green: 0.921, blue: 0.921, alpha: 1)
-        HelperMethods.shared.setBackGround(view: self.view, color1: color1, color2: color2, color3: color3)
-    
-    }
-    
     private func setupNavigationBarButton() {
 
          let scaleConfig = UIImage.SymbolConfiguration(scale: .large)
-         let imageMenu = UIImage(systemName: "ellipsis", withConfiguration: scaleConfig)!
+         let imageMenu = UIImage(systemName: "sidebar.left", withConfiguration: scaleConfig)!
          let imageTemp = imageMenu.withRenderingMode(.alwaysTemplate)
          let menu = UIBarButtonItem(image: imageTemp, style: .plain, target: self, action: #selector(PartsViewController.showMenu(_:)))
          
          self.cart = BadgeButtonItem(with: UIImage(systemName: "cart", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), style: .plain, target: self, action: #selector(PartsViewController.shopCase))
-         
-         navigationItem.rightBarButtonItems = [self.cart!, menu]
         
-        let imageLog = UIImage(named: "log-out")
-        let imageTempLog = imageLog?.withRenderingMode(.alwaysTemplate)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageTempLog, style: .plain, target: self, action: #selector(PartsViewController.backButton))
-         
-         let buttonPlus = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-         buttonPlus.setImage(UIImage(systemName: "plus", withConfiguration: scaleConfig)!, for: .normal)
-         buttonPlus.addTarget(self, action: #selector(PartsViewController.createNewPart), for: .touchUpInside)
+        let plusConfig = UIImage.SymbolConfiguration(scale: .large)
+        let imagePlus = UIImage(systemName: "plus", withConfiguration: plusConfig)!
+        let plusTemp = imagePlus.withRenderingMode(.alwaysTemplate)
+        let plus = UIBarButtonItem(image: plusTemp, style: .plain, target: self, action: #selector(PartsViewController.createNewPart))
         
-        self.viewPlus.addSubview(buttonPlus)
-         navigationItem.titleView = self.viewPlus
-        self.viewPlus.centerXAnchor.constraint(equalTo: navigationItem.titleView!.centerXAnchor).isActive = true
-         self.viewPlus.centerYAnchor.constraint(equalTo: navigationItem.titleView!.centerYAnchor).isActive = true
-        self.viewPlus.widthAnchor.constraint(equalToConstant: 40).isActive = true
-         self.viewPlus.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        self.viewPlus.layer.borderWidth = 1
-        self.viewPlus.layer.borderColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
+         navigationItem.rightBarButtonItems = [plus, self.cart!]
+        navigationItem.leftBarButtonItem = menu
+        
+//        let imageLog = UIImage(named: "log-out")
+//        let imageTempLog = imageLog?.withRenderingMode(.alwaysTemplate)
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageTempLog, style: .plain, target: self, action: #selector(PartsViewController.backButton))
+         
+//         let buttonPlus = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+//         buttonPlus.setImage(UIImage(systemName: "plus", withConfiguration: scaleConfig)!, for: .normal)
+//         buttonPlus.addTarget(self, action: #selector(PartsViewController.createNewPart), for: .touchUpInside)
+//        self.viewPlus.addSubview(buttonPlus)
+//
+////         navigationItem.titleView = self.viewPlus
+//        self.view.addSubview(self.viewPlus)
+//        self.viewPlus.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        self.viewPlus.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: self.view.bounds.size.height / 2.58).isActive = true
+//        self.viewPlus.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//         self.viewPlus.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        self.viewPlus.layer.borderWidth = 1
+//        self.viewPlus.layer.borderColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
+        
+        let imageView = UIImageView(image: UIImage(named: "ingenir.fill"))
+                imageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .black
+                let label = UILabel()
+                label.text = "Parts"
+                label.font = UIFont(name: "HelveticaNeue-BoldItalic", size: 22)
+                label.textColor = .black
+                
+                let stackView = UIStackView(arrangedSubviews: [imageView, label])
+                stackView.axis = .horizontal
+                stackView.frame.size = CGSize(width: imageView.frame.size.width + label.frame.size.width, height: max(imageView.frame.size.height, label.frame.size.height))
+                stackView.spacing = 8
+                
+                navigationItem.titleView = stackView
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1).withAlphaComponent(0.1)
         self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
     }
     
-    @objc func backButton() {
+    func backButton() {
         
         let sv = UIViewController.displaySpinner(onView: self.view)
         PFUser.logOutInBackground { (error: Error?) in
@@ -323,21 +305,86 @@ class PartsViewController: UIViewController, MenuVCProtocol {
             self.transitionToSelected()
         case "Spare parts reports":
             self.transitionToReport()
-        default:
+        case "Last price":
             self.transitionToTopOffer()
+        default:
+            self.backButton()
         }
     }
     
     // для панели транзишен
+    
+//    private func createSlideMenu() {
+//        conteinerView.edgeTo(view)
+//        menuView.pinMenuTo(conteinerView, with: slideInMenuPading)
+//        self.createTableSlideMenu()
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(PartsViewController.tapGectureRecognizerSideMenu(_:)))
+//        self.menuView.isUserInteractionEnabled = true
+//        self.menuView.addGestureRecognizer(tap)
+//    }
 
-     @objc func showMenu(_ sender: Any) {
-        let child = MenuViewController()
-        child.delegate = self
-        child.transitioningDelegate = transition
-        child.modalPresentationStyle = .custom
+    @objc func showMenu(_ sender: Any) {
+//        self.createSlideMenu()
+//        if !isSlideInMenuPresented {
+//
+////            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+////                self.conteinerView.frame.origin.x = self.isSlideInMenuPresented ? 0 : self.view.frame.width - self.slideInMenuPading
+////
+////            }) { (finished) in
+////                print("Animation finished: \(finished)")
+//                self.isSlideInMenuPresented = true
+////            }
+//            self.slideMenuAnimated(translation: 0)
+//        } else {
+//            self.slideMenuAnimated(translation: -self.view.frame.width)
+//            self.isSlideInMenuPresented = false
+//        }
+//
+                let child = MenuViewController()
+                child.delegate = self
+                child.transitioningDelegate = transition
+                child.modalPresentationStyle = .custom
 
-        present(child, animated: true)
+                present(child, animated: true)
     }
+    
+//    private func slideMenuAnimated(translation: CGFloat) {
+////        let force: CGFloat = 1
+////        let translate = CGAffineTransform(translationX: 100 * force, y: 0)
+////        let scale = CGAffineTransform(scaleX: 3 * force, y: 0 * force)
+////        self.conteinerView.transform = translate.concatenating(scale)
+//
+//        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+//
+//            let translate = CGAffineTransform(translationX: translation, y: 0)
+//            let scale = CGAffineTransform(scaleX: 1, y: 1)
+//            self.conteinerView.transform = translate.concatenating(scale)
+//
+//        }, completion: nil)
+//    }
+    
+//    @objc func tapGectureRecognizerSideMenu(_ sender: UITapGestureRecognizer) {
+////        if sender.location(in: self.menuView) == sender. {
+//        self.slideMenuAnimated(translation: -self.view.frame.width)
+//        self.isSlideInMenuPresented = false
+////        }
+//    }
+    
+//    private func createTableSlideMenu() {
+//        sideMenuTableView = MenuViewTab()
+// //       menuView.addSubview(sideMenuTableView)
+//
+//        self.sideMenuTableView.translatesAutoresizingMaskIntoConstraints = false
+//        self.menuView.addSubview(sideMenuTableView)
+//        sideMenuTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        sideMenuTableView.trailingAnchor.constraint(equalTo: self.menuView.trailingAnchor).isActive = true
+//        sideMenuTableView.leadingAnchor.constraint(equalTo: self.menuView.leadingAnchor).isActive = true
+//        sideMenuTableView.bottomAnchor.constraint(equalTo: self.menuView.bottomAnchor).isActive = true
+//
+//        self.sideMenuTableView.table.delegate = self
+//        self.sideMenuTableView.table.dataSource = self
+//
+//    }
     
       @objc func createNewPart() {
           
@@ -423,141 +470,264 @@ class PartsViewController: UIViewController, MenuVCProtocol {
           self.blurEffectView?.removeFromSuperview()
       }
     
+    @objc func addToBag(sender: UIButton) {
+        var name: String
+        let buttonPosition: CGPoint = sender.convert(CGPoint.init(x: 5.0, y: 5.0), to:self.collectionView)
+        guard let indexPath = self.collectionView.indexPathForItem(at: buttonPosition) else { return }
+                   if isFiltering {
+                    name = self.filtredPartMasiv[indexPath.item]
+                   } else {
+                    print(indexPath)
+        //               name = self.partMasiv[indexPath.item]
+                    name = itemsArray[indexPath.item].partName
+                   }
+                   
+                   // проверка сохранён обьект или нет
+                   let saver = CoreDataManager.sharedManager.fetchAllChoisePart()
+                   for nameSaver in saver! {
+                       if nameSaver.name == name {
+                           return
+                       }
+                   }
+                   //------------------
+                   
+                   CoreDataManager.sharedManager.saveChoicePart(name: name, count: "1", price: nil, seller: "Other")
+                   
+                   if self.countPart == 0 {
+                       self.countPart = 1
+                       self.cart!.setBadge(with: self.countPart)
+                   } else {
+                       self.countPart = self.countPart + 1
+                       self.cart!.setBadge(with: self.countPart)
+                   }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "SelectedParts"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "SparePartsReports"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "TopOffer"), object: nil)
         print("deinit PartsVC")
     }
+    
+    //    enum SectionKind: Int, CaseIterable {
+    //        case category, part
+    //        var columnCount: Int {
+    //            switch self {
+    //            case .part:
+    //                return 2
+    //            case .category:
+    //            return 3
+    //            }
+    //        }
+    //    }
+    
+    private func createBg() {
+        let bgImageView = UIView(frame: view.frame)
+        self.view.addSubview(bgImageView)
+    }
+
+    //MARK: Composit Layout
+    
+    var sectionsArray = HelperMethods.shared.createMSection(numberItem: 0)
+    var itemsArray = HelperMethods.shared.createMPart(array: partsNames[0])
+    var scrollTo = 0
+
+    func setupCollectionView() {
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .white
+        
+        view.addSubview(collectionView)
+        collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
+        collectionView.register(FirstCell.self, forCellWithReuseIdentifier: FirstCell.reuseId)
+        collectionView.register(SecondCell.self, forCellWithReuseIdentifier: SecondCell.reuseId)
+        
+        createDataSource()
+        reloadData()
+        
+        collectionView.delegate = self
+    }
+
+    //    private func configure<T: SelfConfiguringCell>(cellType: T.Type, with intValue: Int, for indexPath: IndexPath) -> T {
+    //        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reuseId, for: indexPath) as? T else { fatalError("Error \(cellType)")}
+    //        return cell
+    //    }
+
+        // MARK: - Manage the data in UICV
+
+        func createDataSource() {
+         dataSource = UICollectionViewDiffableDataSource<MSection, MPart>(collectionView: collectionView
+            , cellProvider: { (collectionView, indexPath, part) -> UICollectionViewCell? in
+                switch self.sectionsArray[indexPath.section].type {
+
+                case "CategoriParts":
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstCell.reuseId, for: indexPath) as? FirstCell
+                    cell?.configure(with: part.partName)
+                    return cell
+                default:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondCell.reuseId, for: indexPath) as? SecondCell
+                    cell?.configure(with: part.partName)
+                    cell?.cartButton.addTarget(self, action: #selector(PartsViewController.addToBag(sender:)), for: .touchUpInside)
+                    return cell
+                }
+         })
+            dataSource?.supplementaryViewProvider = {
+                collectionView, kind, indexPath in
+                guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.reuseId, for: indexPath) as? SectionHeader else {
+                    return nil }
+                guard let firstPart = self.dataSource?.itemIdentifier(for: indexPath) else { return nil }
+                guard let section = self.dataSource?.snapshot().sectionIdentifier(containingItem: firstPart) else {return nil }
+                if section.title.isEmpty { return nil }
+                sectionHeader.title.text = section.title
+                return sectionHeader
+            }
+        }
+
+        func reloadData() {
+            var snapShot = NSDiffableDataSourceSnapshot<MSection, MPart>()
+            snapShot.appendSections(sectionsArray)
+
+            for section in sectionsArray {
+                snapShot.appendItems(section.items, toSection: section)
+            }
+            dataSource?.apply(snapShot, animatingDifferences: true)
+
+        }
+
+        //MARK: - Setup Layout
+
+      func createCompositionLayout() -> UICollectionViewLayout {
+          let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+              let section = self.sectionsArray[sectionIndex]
+
+              switch section.type {
+              case "CategoriParts":
+                  return self.createCategorySection()
+              default:
+                  return self.createPartSection()
+              }
+          }
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 50
+        layout.configuration = config
+          return layout
+      }
+
+        private func createCategorySection() -> NSCollectionLayoutSection {
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                  let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 4, bottom: 0, trailing: 4)
+                let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(self.view.bounds.size.width / 5), heightDimension: .estimated(self.view.bounds.size.width / 5))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        //        group.interItemSpacing = .fixed(spasing)
+                  let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .continuous
+        //        section.interGroupSpacing = spasing
+            section.contentInsets = NSDirectionalEdgeInsets.init(top: 12, leading: 8, bottom: 0, trailing: 8)
+
+        //        let layoutSectionHeader = createSectionHeadr()
+        //        layoutSectionHeader.contentInsections = NSDirectionEdgeInsets.init(top: 0, leading: 5, bottom: 0, trailing: 0)
+        //        layoutSection.boundarySupplementaryItems = [layoutSectionHeader]
+
+            let header = createSectionHeader()
+            section.boundarySupplementaryItems = [header]
+                  return section
+              }
+
+        private func createPartSection() -> NSCollectionLayoutSection {
+
+ //           let spasing = CGFloat(20)
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(self.view.bounds.size.width / 9))
+              let item = NSCollectionLayoutItem(layoutSize: itemSize)
+              item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0)
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(2.0))
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+//            group.contentInsets = NSDirectionalEdgeInsets(top: 50, leading: 0, bottom: 50, trailing: 0)
+ //           group.interItemSpacing = .fixed(spasing)
+              let section = NSCollectionLayoutSection(group: group)
+ //           section.interGroupSpacing = spasing
+              section.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 6, bottom: 0, trailing: 6)
+
+            let header = createSectionHeader()
+            section.boundarySupplementaryItems = [header]
+              return section
+          }
+    
+    private func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1))
+        let layoutSectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        return layoutSectionHeader
+    }
+
 
 }
 
-extension PartsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+private extension UIView {
     
-       //MARK: UICollectionViewDataSourse
-        
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if collectionView == self.categoryCollectionView {
-            return self.categoryMasiv.count
-        } else {
-            if isFiltering {
-                return filtredPartMasiv.count
-            }
-            return self.partMasiv.count
-        }
-        
+    func edgeTo(_ view: UIView) {
+        view.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            if collectionView == self.categoryCollectionView {
-                let cell = (collectionView.dequeueReusableCell(withReuseIdentifier: FirstCell.reuseId, for: indexPath) as? FirstCell)!
-                
-                let categories = self.categoryMasiv[indexPath.row]
-                cell.configure(with: categories)
-      
-                cell.layer.shadowOpacity = 0.7
-                cell.layer.shadowRadius = 5.0
-                
-                return cell
-            } else {
-                let cell = (collectionView.dequeueReusableCell(withReuseIdentifier: SecondCell.reuseId, for: indexPath) as? SecondCell)!
-                var part: String
-                if isFiltering {
-                    part = self.filtredPartMasiv[indexPath.row]
-                        cell.configure(with: part)
-                    return cell
-                } else {
-                    part = self.partMasiv[indexPath.row]
-                        cell.configure(with: part)
-                    return cell
-                }
-            }
-        }
-        
-        //MARK: UICollectionViewDelegate
-        
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
-            
-            if collectionView == categoryCollectionView {
-                self.partMasiv = partsNames[indexPath.item]
-                self.partCollectionView?.reloadData()
-                self.partCollectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-            } else {
-            var name: String
-            if isFiltering {
-                name = self.filtredPartMasiv[indexPath.item]
-            } else {
-                print(indexPath)
-                name = self.partMasiv[indexPath.item]
-            }
-            
- // проверка сохранён обьект или нет
-            let saver = CoreDataManager.sharedManager.fetchAllChoisePart()
-            for nameSaver in saver! {
-                if nameSaver.name == name {
-                    return
-                }
-            }
- //------------------
-            
-            CoreDataManager.sharedManager.saveChoicePart(name: name, count: "1", price: nil, seller: "Other")
-
-                if self.countPart == 0 {
-                    self.countPart = 1
-                    self.cart!.setBadge(with: self.countPart)
-                } else {
-                    self.countPart = self.countPart + 1
-                    self.cart!.setBadge(with: self.countPart)
-                }
-                
-                guard let cell = partCollectionView!.cellForItem(at: indexPath) as? SecondCell else { return }
-
-            let cardViewFrame = cell.partImageView.superview!.convert(cell.partImageView.frame, to: nil)
-            let copiOfCardView = UIView(frame: cardViewFrame)
-            copiOfCardView.layer.cornerRadius = 12.0
-            view.addSubview(copiOfCardView)
-            copiOfCardView.backgroundColor = UIColor(patternImage: UIImage(named: name + ".jpg")!)
-
-            UIView.animate(withDuration: 1.0, animations: {
-                copiOfCardView.transform = CGAffineTransform(scaleX: 2, y: 2)
-                copiOfCardView.transform = CGAffineTransform(scaleX: -2, y: -2)
-                copiOfCardView.frame = CGRect(x: 0, y: 0, width: cell.partImageView.frame.width / 7, height: cell.partImageView.frame.width / 7)
-            }) { (extended) in
-                copiOfCardView.removeFromSuperview()
-            }
-            }
-
-        }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//         if collectionView == partCollectionView {
-//            return 2
-//         } else {
-//            return 10
-//        }
-//    }
-        
-        //MARK: UICollectionViewDelegateFlowLayout
-        
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //
-    //        let width = (self.partCategoriCollectionView!.bounds.width / 2) - 15
-    //        let height = width * (4 / 3)
-    //
-    ////        var height: CGFloat
-    ////        if indexPath.item % 2 == 0 {
-    ////            height = width * (5 / 3)
-    ////        } else {
-    ////            height = width * (4 / 3)
-    ////        }
-    //
-    //        return CGSize(width: width, height: height)
-    //    }
-        
+    func pinMenuTo(_ view: UIView, with constant: CGFloat) {
+        view.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+}
+
+extension PartsViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch self.sectionsArray[indexPath.section].type {
+            
+        case "CategoriParts":
+            guard let id = self.dataSource?.itemIdentifier(for: indexPath) else { return }
+            guard var snaphost = self.dataSource?.snapshot() else { return }
+            
+            snaphost.deleteItems(self.itemsArray)
+            
+            guard let itemIndex = snaphost.indexOfItem(id) else { return }
+            self.itemsArray = HelperMethods.shared.createMPart(array: partsNames[itemIndex])
+            snaphost.appendItems(self.itemsArray, toSection: self.sectionsArray.last)
+            
+            dataSource?.apply(snaphost, animatingDifferences: true)
+            
+            collectionView.deselectItem(at: indexPath, animated: true)
+        default:
+           print("default")
+        }
+    }
+}
+
+extension NSDiffableDataSourceSnapshot {
+
+    mutating func deleteItems(_ items: [ItemIdentifierType], at section: Int) {
+
+        // a Delete Items in section
+
+        deleteItems(items)
+
+      let sectionIdentifier = sectionIdentifiers[section]
+
+      // c Check if its empty
+
+      guard numberOfItems(inSection: sectionIdentifier) == 0 else { return }
+
+      // d Delete Section
+
+      deleteSections([sectionIdentifier])
+
+    }
+}
 
 extension PartsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -569,199 +739,6 @@ extension PartsViewController: UISearchResultsUpdating {
         self.filtredPartMasiv = self.partMasiv.filter({ (part: String) -> Bool in
             return part.lowercased().contains(searchText.lowercased())
         })
-        partCollectionView?.reloadData()
+        collectionView?.reloadData()
     }
 }
-
-    
-
-
-
-
-//MARK: Composit Layout
-//----------------------------------------------------------------------------------------------------
-
-//class PartsViewController: UIViewController {
-//
-////    enum SectionKind: Int, CaseIterable {
-////        case category, part
-////        var columnCount: Int {
-////            switch self {
-////            case .part:
-////                return 2
-////            case .category:
-////            return 3
-////            }
-////        }
-////    }
-//
-//    var sections = HelperMethods.shared.createMSection(numberItem: 0)
-//    var scrollTo = 0
-//
-//    var dataSource: UICollectionViewDiffableDataSource<MSection, String>! = nil
-//    var collectionView: UICollectionView!
-//
-//      override func viewDidLoad() {
-//          super.viewDidLoad()
-//
-//          view.backgroundColor = .purple
-//          setupCollectionView()
-//      }
-//
-//      func setupCollectionView() {
-//          collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-//          collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//          collectionView.backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
-//          view.addSubview(collectionView)
-//          collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-//        collectionView.register(FirstCell.self, forCellWithReuseIdentifier: FirstCell.reuseId)
-//        collectionView.register(SecondCell.self, forCellWithReuseIdentifier: SecondCell.reuseId)
-//
-//        createDataSource()
-//        reloadData()
-//
-//        collectionView.delegate = self
-//      }
-//
-////    private func configure<T: SelfConfiguringCell>(cellType: T.Type, with intValue: Int, for indexPath: IndexPath) -> T {
-////        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.reuseId, for: indexPath) as? T else { fatalError("Error \(cellType)")}
-////        return cell
-////    }
-//
-//    // MARK: - Manage the data in UICV
-//
-//    func createDataSource() {
-//     dataSource = UICollectionViewDiffableDataSource<MSection, String>(collectionView: collectionView
-//        , cellProvider: { (collectionView, indexPath, part) -> UICollectionViewCell? in
-//            switch self.sections[indexPath.section].type {
-//
-//            case "CategoriParts":
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstCell.reuseId, for: indexPath) as? FirstCell
-//                cell?.configure(with: part + ".jpg")
-//                return cell
-//            default:
-//                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondCell.reuseId, for: indexPath) as? SecondCell
-//                cell?.configure(with: part + ".jpg")
-//                return cell
-//            }
-//     })
-//    }
-//
-//    func reloadData() {
-//        var snapShot = NSDiffableDataSourceSnapshot<MSection, String>()
-//        snapShot.appendSections(sections)
-//
-//        for section in sections {
-//            snapShot.appendItems(section.items, toSection: section)
-//        }
-//        dataSource?.apply(snapShot)
-//
-//    }
-//
-//    //MARK: - Setup Layout
-//
-//  func createLayout() -> UICollectionViewLayout {
-//      let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-//          let section = self.sections[sectionIndex]
-//
-//          switch section.type {
-//          case "CategoriParts":
-//              return self.createCategorySection()
-//          default:
-//              return self.createPartSection()
-//          }
-//      }
-//    let config = UICollectionViewCompositionalLayoutConfiguration()
-//    config.interSectionSpacing = 50
-//    layout.configuration = config
-//      return layout
-//  }
-//
-//    private func createCategorySection() -> NSCollectionLayoutSection {
-//
-//
-//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//              let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//              item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
-//            let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(160), heightDimension: .estimated(144))
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-//    //        group.interItemSpacing = .fixed(spasing)
-//              let section = NSCollectionLayoutSection(group: group)
-//            section.orthogonalScrollingBehavior = .continuous
-//    //        section.interGroupSpacing = spasing
-//              section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 12, bottom: 0, trailing: 12)
-//
-//
-//    //        let layoutSectionHeader = createSectionHeadr()
-//    //        layoutSectionHeader.contentInsections = NSDirectionEdgeInsets.init(top: 0, leading: 5, bottom: 0, trailing: 0)
-//    //        layoutSection.boundarySupplementaryItems = [layoutSectionHeader]
-//
-//              return section
-//          }
-//
-//
-//    private func createPartSection() -> NSCollectionLayoutSection {
-//
-//        let spasing = CGFloat(20)
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//          let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//    //      item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.45))
-//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-//        group.interItemSpacing = .fixed(spasing)
-//          let section = NSCollectionLayoutSection(group: group)
-//        section.interGroupSpacing = spasing
-//          section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: spasing, bottom: 0, trailing: spasing)
-//
-//          return section
-//      }
-//
-//
-//}
-//
-//// MARK: - UICollectionViewDelegate
-//
-//extension PartsViewController: UICollectionViewDelegate {
-//
-////    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-////
-////
-////        self.collectionView?.scrollToItem(at: IndexPath(item: scrollTo, section: 0), at: .left, animated: false)
-////
-////    }
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if indexPath.section == 0 {
-//            self.sections = HelperMethods.shared.createMSection(numberItem: indexPath.item)
-//            self.createDataSource()
-//            self.reloadData()
-//            scrollTo = indexPath.item
-//
-//        }
-//        print(indexPath)
-////        collectionView.deselectItem(at: indexPath, animated: true)
-//    }
-//
-//
-//}
-//
-//// MARK: - SwiftUI
-////import SwiftUI
-////struct AdvancedProvider: PreviewProvider {
-////    static var previews: some View {
-////        ContainterView().edgesIgnoringSafeArea(.all)
-////    }
-////
-////    struct ContainterView: UIViewControllerRepresentable {
-////
-////        let tabBar = MainTabBarController()
-////        func makeUIViewController(context: UIViewControllerRepresentableContext<AdvancedProvider.ContainterView>) -> MainTabBarController {
-////            return tabBar
-////        }
-////
-////        func updateUIViewController(_ uiViewController: AdvancedProvider.ContainterView.UIViewControllerType, context: UIViewControllerRepresentableContext<AdvancedProvider.ContainterView>) {
-////
-////        }
-////    }
-////}
-

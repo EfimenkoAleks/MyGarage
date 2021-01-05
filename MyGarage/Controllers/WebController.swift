@@ -91,7 +91,8 @@ class WebController: UIViewController, WKNavigationDelegate {
     
             self.navigationController?.isToolbarHidden = false
             self.navigationController?.toolbar.backgroundColor = .clear
-            self.navigationController?.toolbar.barTintColor = HelperMethods.shared.hexStringToUIColor(hex: "#74b9ff")
+            self.navigationController?.toolbar.barTintColor = #colorLiteral(red: 0.9665722251, green: 0.9766036868, blue: 0.9875525832, alpha: 1).withAlphaComponent(0.96)
+//            self.navigationController?.toolbar.barTintColor = HelperMethods.shared.hexStringToUIColor(hex: "#74b9ff")
             var items = [UIBarButtonItem]()
     
             let scaleConfig = UIImage.SymbolConfiguration(scale: .large)

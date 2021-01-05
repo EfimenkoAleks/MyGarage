@@ -16,3 +16,12 @@ protocol MenuVCProtocol: class {
 protocol RootControllerDelegate: class {
     func setRootController(controller: String)
 }
+
+protocol SlideMenuDegate: class {
+    func createMenu()
+}
+
+protocol PicerPhotoCarProtocol: class {
+    func takePhoto()
+    func reloadCarTable()
+}

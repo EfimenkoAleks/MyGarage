@@ -52,7 +52,7 @@ class CarDetailViewController: UIViewController {
           HelperMethods.shared.setBackGround(view: self.view, color1: MySettings.shared.gcolor1, color2: MySettings.shared.gcolor2, color3: MySettings.shared.gcolor3)
         title = titleCar
                
-               navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), style: .plain, target: self, action: #selector(setupBarButton))
+               navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(scale: .large)), style: .plain, target: self, action: #selector(setupBarButton))
         navigationController?.navigationBar.shadowImage = UIImage()
                navigationController?.navigationBar.backgroundColor = MySettings.shared.gcolorNavBar
     }
@@ -169,7 +169,7 @@ extension CarDetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.nameLabel.text = masivCarStr[indexPath.row].propertyCar
         cell.dateLabel.text = masivCarStr[indexPath.row].dateOfBirth
         cell.accessoryType = .detailButton
-        cell.tintColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
+        cell.tintColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1).withAlphaComponent(0.1)
         cell.layer.borderWidth = 1
         
         return cell

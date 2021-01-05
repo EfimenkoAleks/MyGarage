@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController {
 
                // как сделать бэкграунд синим?
 //        UITabBar.appearance().barTintColor = UIColor.blue // не работает
-        UITabBar.appearance().backgroundImage = UIImage(color: #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1).withAlphaComponent(0.1))
+        UITabBar.appearance().backgroundImage = UIImage(color: #colorLiteral(red: 0.9665722251, green: 0.9766036868, blue: 0.9875525832, alpha: 1).withAlphaComponent(0.96))
        
         
         let carsViewController = CarViewController()

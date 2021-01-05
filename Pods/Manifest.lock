@@ -1,32 +1,40 @@
 PODS:
-  - Bolts/Tasks (1.9.0)
-  - Charts (3.4.0):
-    - Charts/Core (= 3.4.0)
-  - Charts/Core (3.4.0)
-  - Parse (1.17.3):
-    - Parse/Core (= 1.17.3)
-  - Parse/Core (1.17.3):
-    - Bolts/Tasks (~> 1.9)
-  - RAMAnimatedTabBarController (5.1.0)
+  - Bolts/Tasks (1.9.1)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
+  - Parse (1.19.1):
+    - Parse/Core (= 1.19.1)
+  - Parse/Core (1.19.1):
+    - Bolts/Tasks (= 1.9.1)
+  - QuickLayout (3.0.0)
+  - SwiftEntryKit (1.2.3):
+    - QuickLayout (= 3.0.0)
+  - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
   - Charts
   - Parse
-  - RAMAnimatedTabBarController
+  - SwiftEntryKit (= 1.2.3)
+  - TextFieldEffects
 
 SPEC REPOS:
   trunk:
     - Bolts
     - Charts
     - Parse
-    - RAMAnimatedTabBarController
+    - QuickLayout
+    - SwiftEntryKit
+    - TextFieldEffects
 
 SPEC CHECKSUMS:
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
-  Parse: c1ad2a04d2cab2b54b6fb7da05f741abf2cf57d1
-  RAMAnimatedTabBarController: b5c821298071fded801532216ad8a24394f89859
+  Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  Parse: e40fdb9c7d665823b7fe9865949cac9a53eb2ce7
+  QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
+  SwiftEntryKit: 340713c2e4a6662c5149629990bf1088bf5f0389
+  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 012d8d54972711dee2826122746eeeadae4201a4
+PODFILE CHECKSUM: f01c7a613cc801cec0b1b0dfcb5195e65d979b0c
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0

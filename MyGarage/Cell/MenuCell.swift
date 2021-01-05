@@ -22,26 +22,28 @@ class MenuCell: UITableViewCell {
             lb.translatesAutoresizingMaskIntoConstraints = false
             return lb
         }()
+    
+    let iconButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "car"), for: .normal)
+        btn.tintColor = .black
+        btn.isUserInteractionEnabled = false
+        //           btn.setTitle("Save", for: .normal)
+        //          btn.setTitleColor(#colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1), for: .normal)
+        //          btn.titleLabel?.font = UIFont(name: "Avenir-Medium", size: 17)
+        // btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        //          btn.layer.cornerRadius = 8
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = .clear
         
-//        let bubbleView: UIView = {
-//            let view = UIView()
-//            view.backgroundColor = .clear // #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 0.5)
-//            view.layer.cornerRadius = 6
-//            view.layer.masksToBounds = true
-//            view.translatesAutoresizingMaskIntoConstraints = false
-//            return view
-//        }()
+        //           btn.addTarget(self, action: #selector(SelectedItemsViewController.forSavebutton), for: .touchUpInside)
+        return btn
+    }()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
             
-           
-            addSubview(nameLabel)
-          
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
-            nameLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            nameLabel.widthAnchor.constraint(equalToConstant: self.frame.width).isActive = true
-            nameLabel.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+            self.setupConstraint()
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -54,8 +56,8 @@ class MenuCell: UITableViewCell {
             }
             set (newFrame) {
                 var frame =  newFrame
-                frame.origin.y += 4
-                frame.size.height -= 2 * 2
+                frame.origin.y += 20
+                frame.size.height -= 2 * 6
                 super.frame = frame
             }
         }
@@ -66,9 +68,25 @@ class MenuCell: UITableViewCell {
             self.selectionStyle = .none
             self.layer.cornerRadius = 10.0
 //            self.backgroundColor = #colorLiteral(red: 0.840382874, green: 0.9280859828, blue: 0.9567258954, alpha: 1)
-            self.backgroundColor = .white
+            self.backgroundColor = .clear
            
         }
+}
 
-    
+extension MenuCell {
+    private func setupConstraint() {
+        addSubview(iconButton)
+        
+          iconButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
+          iconButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+          iconButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+          iconButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        addSubview(nameLabel)
+        
+        nameLabel.leadingAnchor.constraint(equalTo: iconButton.trailingAnchor, constant: 12).isActive = true
+          nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+          nameLabel.widthAnchor.constraint(equalToConstant: self.frame.width / 3 * 2).isActive = true
+          nameLabel.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+    }
 }

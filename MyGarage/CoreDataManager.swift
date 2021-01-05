@@ -45,13 +45,14 @@ class CoreDataManager {
     
     //MARK: Car
     
-    func saveCar(name: String, subName: String, number : String, bool: Bool, masiv: [[String]]?) {
+    func saveCar(image: Data, name: String, subName: String, number : String, bool: Bool, masiv: [[String]]?) {
         
         let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Car", in: managedContext)!
         
         let car = NSManagedObject(entity: entity, insertInto: managedContext)
         
+        car.setValue(image, forKey: "image")
         car.setValue(name, forKeyPath: "name")
         car.setValue(subName, forKeyPath: "subName")
         car.setValue(number, forKey: "number")
@@ -70,8 +71,8 @@ class CoreDataManager {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-    
-    func insertCar(name: String, subName: String, number : String)->Car? {
+ //----------------
+    func insertCar(image: Data, name: String, subName: String, number : String)->Car? {
         
         let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
         
@@ -92,7 +93,7 @@ class CoreDataManager {
         }
     }
     
-    func updateCar(name: String?, subName: String?, number : String?, bool: Bool?, car : Car) {
+    func updateCar(name: Data?, subName: String?, number : String?, bool: Bool?, car : Car) {
         
         let context = CoreDataManager.sharedManager.persistentContainer.viewContext
         
@@ -201,7 +202,6 @@ class CoreDataManager {
             print("Could not fetch. \(error), \(error.userInfo)")
             return nil
         }
-        
     }
     
     func delete(number: String) -> [Car]? {

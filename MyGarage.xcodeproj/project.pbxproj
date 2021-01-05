@@ -12,7 +12,6 @@
 		0449D21D23ED805B006636A1 /* Рулевой_механизм.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D21523ED805A006636A1 /* Рулевой_механизм.jpg */; };
 		0449D21E23ED805B006636A1 /* Разное.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D21623ED805A006636A1 /* Разное.jpg */; };
 		0449D21F23ED805B006636A1 /* Двигатель.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D21723ED805A006636A1 /* Двигатель.jpg */; };
-		0449D22023ED805B006636A1 /* Сцепление.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D21823ED805A006636A1 /* Сцепление.jpg */; };
 		0449D22123ED805B006636A1 /* Система_охлаждения.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D21923ED805B006636A1 /* Система_охлаждения.jpg */; };
 		0449D22223ED805B006636A1 /* Кардан.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D21A23ED805B006636A1 /* Кардан.jpg */; };
 		0449D28323ED8097006636A1 /* Подвисной.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0449D22323ED808D006636A1 /* Подвисной.jpg */; };
@@ -114,6 +113,11 @@
 		044F5B6623FD4FC200755066 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F5B6523FD4FC200755066 /* WebController.swift */; };
 		04506CB623EAF89C002944D1 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04506CB523EAF89C002944D1 /* RootViewController.swift */; };
 		0450E95824177CD500423977 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450E95724177CD500423977 /* Protocols.swift */; };
+		0451935F2594A69100AE3635 /* Сцепление.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0451935E2594A69100AE3635 /* Сцепление.jpg */; };
+		045193612594A69F00AE3635 /* Запчасть_сцепление.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045193602594A69F00AE3635 /* Запчасть_сцепление.jpg */; };
+		045193632594D06D00AE3635 /* SelectedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045193622594D06D00AE3635 /* SelectedItem.swift */; };
+		045193652594D1DC00AE3635 /* SelectedItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045193642594D1DC00AE3635 /* SelectedItemView.swift */; };
+		045193672594DD1E00AE3635 /* SelectedViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045193662594DD1E00AE3635 /* SelectedViewContent.swift */; };
 		0455A2D823E8591F0013F1DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2D723E8591F0013F1DB /* AppDelegate.swift */; };
 		0455A2DA23E8591F0013F1DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2D923E8591F0013F1DB /* SceneDelegate.swift */; };
 		0455A2E223E8591F0013F1DB /* MyGarage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2E023E8591F0013F1DB /* MyGarage.xcdatamodeld */; };
@@ -125,8 +129,10 @@
 		0455A2F723E85D780013F1DB /* SecondCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2F623E85D780013F1DB /* SecondCell.swift */; };
 		0455A2F923E85E750013F1DB /* ProtocolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2F823E85E750013F1DB /* ProtocolCell.swift */; };
 		0455A2FB23E85FBA0013F1DB /* CarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2FA23E85FBA0013F1DB /* CarViewController.swift */; };
+		045A8FE2259B4AB30037FF2D /* DSCameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */; };
 		0465429123FC0C1800DECD30 /* SelectedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */; };
 		0465429323FC0CD500DECD30 /* SelectedItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */; };
+		04662B7C258CBCD100910C73 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04662B7B258CBCD100910C73 /* SectionHeader.swift */; };
 		0466E0CD23E960AA00D74118 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466E0CC23E960AA00D74118 /* CoreDataManager.swift */; };
 		0466E0CF23E968FD00D74118 /* HelperMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466E0CE23E968FD00D74118 /* HelperMethods.swift */; };
 		0466E0D123E96BDB00D74118 /* CarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0466E0D023E96BDB00D74118 /* CarTableViewCell.swift */; };
@@ -161,6 +167,11 @@
 		CE42AF882405A70000259135 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42AF872405A70000259135 /* TopCell.swift */; };
 		CE6E104823F99164002DC2D9 /* BadgeButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E104723F99164002DC2D9 /* BadgeButtonItem.swift */; };
 		CE6E104A2402F8D2002DC2D9 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10492402F8D2002DC2D9 /* MenuCell.swift */; };
+		CE9A2A73259F82D30047412E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A2A72259F82D30047412E /* ImagePicker.swift */; };
+		CE9A2A75259F8A900047412E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE9A2A74259F8A900047412E /* Default-568h@2x.png */; };
+		CEB6B8AF259BAFFD004BC4D5 /* AlertForAddCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB6B8AE259BAFFD004BC4D5 /* AlertForAddCar.swift */; };
+		CEC3615C25964F8800AE4133 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC3615B25964F8800AE4133 /* MenuView.swift */; };
+		CEC3615F25964FE200AE4133 /* MenuViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC3615E25964FE200AE4133 /* MenuViewExtention.swift */; };
 		CEECBABA23ECB1E1003FD62A /* MPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECBAB923ECB1E1003FD62A /* MPart.swift */; };
 		CEECBABC23ECB2FB003FD62A /* MSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECBABB23ECB2FB003FD62A /* MSection.swift */; };
 /* End PBXBuildFile section */
@@ -171,7 +182,6 @@
 		0449D21523ED805A006636A1 /* Рулевой_механизм.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Рулевой_механизм.jpg"; sourceTree = "<group>"; };
 		0449D21623ED805A006636A1 /* Разное.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Разное.jpg"; sourceTree = "<group>"; };
 		0449D21723ED805A006636A1 /* Двигатель.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Двигатель.jpg"; sourceTree = "<group>"; };
-		0449D21823ED805A006636A1 /* Сцепление.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Сцепление.jpg"; sourceTree = "<group>"; };
 		0449D21923ED805B006636A1 /* Система_охлаждения.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Система_охлаждения.jpg"; sourceTree = "<group>"; };
 		0449D21A23ED805B006636A1 /* Кардан.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Кардан.jpg"; sourceTree = "<group>"; };
 		0449D22323ED808D006636A1 /* Подвисной.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Подвисной.jpg"; sourceTree = "<group>"; };
@@ -273,6 +283,11 @@
 		044F5B6523FD4FC200755066 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
 		04506CB523EAF89C002944D1 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		0450E95724177CD500423977 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		0451935E2594A69100AE3635 /* Сцепление.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Сцепление.jpg"; sourceTree = "<group>"; };
+		045193602594A69F00AE3635 /* Запчасть_сцепление.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Запчасть_сцепление.jpg"; sourceTree = "<group>"; };
+		045193622594D06D00AE3635 /* SelectedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItem.swift; sourceTree = "<group>"; };
+		045193642594D1DC00AE3635 /* SelectedItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemView.swift; sourceTree = "<group>"; };
+		045193662594DD1E00AE3635 /* SelectedViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewContent.swift; sourceTree = "<group>"; };
 		0455A2D423E8591F0013F1DB /* MyGarage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyGarage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0455A2D723E8591F0013F1DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0455A2D923E8591F0013F1DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -286,8 +301,10 @@
 		0455A2F623E85D780013F1DB /* SecondCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCell.swift; sourceTree = "<group>"; };
 		0455A2F823E85E750013F1DB /* ProtocolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolCell.swift; sourceTree = "<group>"; };
 		0455A2FA23E85FBA0013F1DB /* CarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewController.swift; sourceTree = "<group>"; };
+		045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCameraHandler.swift; sourceTree = "<group>"; };
 		0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsViewController.swift; sourceTree = "<group>"; };
 		0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsTableViewCell.swift; sourceTree = "<group>"; };
+		04662B7B258CBCD100910C73 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		0466E0CC23E960AA00D74118 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0466E0CE23E968FD00D74118 /* HelperMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperMethods.swift; sourceTree = "<group>"; };
 		0466E0D023E96BDB00D74118 /* CarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTableViewCell.swift; sourceTree = "<group>"; };
@@ -324,6 +341,13 @@
 		CE42AF872405A70000259135 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
 		CE6E104723F99164002DC2D9 /* BadgeButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButtonItem.swift; sourceTree = "<group>"; };
 		CE6E10492402F8D2002DC2D9 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		CE9A2A72259F82D30047412E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CE9A2A74259F8A900047412E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CEB6B8AE259BAFFD004BC4D5 /* AlertForAddCar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertForAddCar.swift; sourceTree = "<group>"; };
+		CEB6B8DE259CDB81004BC4D5 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEBDEA50259CE22600B4F399 /* RAMAnimatedTabBarController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RAMAnimatedTabBarController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC3615B25964F8800AE4133 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		CEC3615E25964FE200AE4133 /* MenuViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewExtention.swift; sourceTree = "<group>"; };
 		CEECBAB923ECB1E1003FD62A /* MPart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPart.swift; sourceTree = "<group>"; };
 		CEECBABB23ECB2FB003FD62A /* MSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -358,7 +382,7 @@
 				0449D21623ED805A006636A1 /* Разное.jpg */,
 				0449D21523ED805A006636A1 /* Рулевой_механизм.jpg */,
 				0449D21923ED805B006636A1 /* Система_охлаждения.jpg */,
-				0449D21823ED805A006636A1 /* Сцепление.jpg */,
+				0451935E2594A69100AE3635 /* Сцепление.jpg */,
 				0449D21323ED805A006636A1 /* Электро_оборудование.jpg */,
 			);
 			path = Category;
@@ -386,6 +410,7 @@
 				0449D24923ED8091006636A1 /* Гайка_задней_ступицы.jpg */,
 				0449D27A23ED8096006636A1 /* Гайка_колеса.jpg */,
 				0449D26D23ED8095006636A1 /* Гайка_передней_ступицы.jpg */,
+				045193602594A69F00AE3635 /* Запчасть_сцепление.jpg */,
 				0449D24423ED8090006636A1 /* Генератор.jpg */,
 				0449D27823ED8096006636A1 /* Главная_пара.jpg */,
 				0449D24F23ED8091006636A1 /* Главный_целиндр_сцепления.jpg */,
@@ -470,6 +495,7 @@
 		0455A2CB23E8591F0013F1DB = {
 			isa = PBXGroup;
 			children = (
+				CE9A2A74259F8A900047412E /* Default-568h@2x.png */,
 				0455A2D623E8591F0013F1DB /* MyGarage */,
 				0455A2D523E8591F0013F1DB /* Products */,
 				04CDB624D33B3E1AF3271428 /* Pods */,
@@ -510,20 +536,21 @@
 				04DB6B3D23F6B77700ED79CB /* SlaydMenu */,
 				0455A2EF23E85C000013F1DB /* MainTabBarController.swift */,
 				0455A2F123E85CE70013F1DB /* PartsViewController.swift */,
-				0455A2FA23E85FBA0013F1DB /* CarViewController.swift */,
-				0466E0D223E96C6000D74118 /* PopOverForCar.swift */,
+				0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */,
+				045193662594DD1E00AE3635 /* SelectedViewContent.swift */,
+				CEB6B8AD259BAFA2004BC4D5 /* CarViewController */,
 				0466E0D423E96DA600D74118 /* CarDetailViewController.swift */,
+				0466E0D223E96C6000D74118 /* PopOverForCar.swift */,
 				CE3FB92A24102C7400B899F5 /* QrCodeController.swift */,
 				0466E0DA23E9A73400D74118 /* RegistrViewController.swift */,
 				0466E0DC23E9A76C00D74118 /* LogedInViewController.swift */,
 				0466E0DE23E9A79700D74118 /* SignUpViewController.swift */,
-				0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */,
 				044F5B6523FD4FC200755066 /* WebController.swift */,
-				04DB6B3B23F6B6FD00ED79CB /* MenuViewController.swift */,
 				CE42AF7F2404665900259135 /* SparePartsReportsViewController.swift */,
 				CE42AF832405A2FE00259135 /* SparePartReportDetailViewController.swift */,
 				CE42AF852405A65100259135 /* TopOfferViewController.swift */,
 				04506CB523EAF89C002944D1 /* RootViewController.swift */,
+				CEC3615D25964FB800AE4133 /* MenuView */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -533,13 +560,17 @@
 			children = (
 				0455A2F423E85D660013F1DB /* FirstCell.swift */,
 				0455A2F623E85D780013F1DB /* SecondCell.swift */,
-				0455A2F823E85E750013F1DB /* ProtocolCell.swift */,
 				0466E0D023E96BDB00D74118 /* CarTableViewCell.swift */,
 				0466E0D623E96DFB00D74118 /* CarDetailCell.swift */,
 				0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */,
 				CE6E10492402F8D2002DC2D9 /* MenuCell.swift */,
 				CE42AF812405992100259135 /* SparePartReportCell.swift */,
 				CE42AF872405A70000259135 /* TopCell.swift */,
+				04662B7B258CBCD100910C73 /* SectionHeader.swift */,
+				045193642594D1DC00AE3635 /* SelectedItemView.swift */,
+				0455A2F823E85E750013F1DB /* ProtocolCell.swift */,
+				045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */,
+				CE9A2A72259F82D30047412E /* ImagePicker.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -561,6 +592,7 @@
 				CE3FB928240C1D0100B899F5 /* ExtensionImage.swift */,
 				0450E95724177CD500423977 /* Protocols.swift */,
 				CE3FB92E2419550300B899F5 /* ConstInitVC.swift */,
+				045193622594D06D00AE3635 /* SelectedItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -589,9 +621,30 @@
 		71D62C6A70BC5B4F43F85646 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEBDEA50259CE22600B4F399 /* RAMAnimatedTabBarController.framework */,
+				CEB6B8DE259CDB81004BC4D5 /* Charts.framework */,
 				C5E5502FE6A98F6C4330393A /* Pods_MyGarage.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEB6B8AD259BAFA2004BC4D5 /* CarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0455A2FA23E85FBA0013F1DB /* CarViewController.swift */,
+				CEB6B8AE259BAFFD004BC4D5 /* AlertForAddCar.swift */,
+			);
+			path = CarViewController;
+			sourceTree = "<group>";
+		};
+		CEC3615D25964FB800AE4133 /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				04DB6B3B23F6B6FD00ED79CB /* MenuViewController.swift */,
+				CEC3615B25964F8800AE4133 /* MenuView.swift */,
+				CEC3615E25964FE200AE4133 /* MenuViewExtention.swift */,
+			);
+			path = MenuView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -662,7 +715,6 @@
 				0449D2BD23ED8097006636A1 /* Колодки_тормозные_передние.jpg in Resources */,
 				0449D2D423ED8097006636A1 /* Траверса.jpg in Resources */,
 				0449D29523ED8097006636A1 /* Колдки_тормозные_задние.jpg in Resources */,
-				0449D22023ED805B006636A1 /* Сцепление.jpg in Resources */,
 				0449D21B23ED805B006636A1 /* Электро_оборудование.jpg in Resources */,
 				0449D2B123ED8097006636A1 /* Переключатель_поворотов.jpg in Resources */,
 				0449D28F23ED8097006636A1 /* Полуось_задняя.jpg in Resources */,
@@ -679,6 +731,7 @@
 				0449D29C23ED8097006636A1 /* Радиатор_отопителя.jpg in Resources */,
 				0449D28923ED8097006636A1 /* Выжимной_подшибник.jpg in Resources */,
 				0449D2B023ED8097006636A1 /* Часть_кардана.jpg in Resources */,
+				045193612594A69F00AE3635 /* Запчасть_сцепление.jpg in Resources */,
 				0449D28523ED8097006636A1 /* Ролик_натяжной_ремня.jpg in Resources */,
 				0449D2D023ED8097006636A1 /* Прокладки_двигателя.jpg in Resources */,
 				0449D2BA23ED8097006636A1 /* Крестовина.jpg in Resources */,
@@ -719,6 +772,7 @@
 				0449D2BF23ED8097006636A1 /* Лист_ресоры.jpg in Resources */,
 				0449D2D523ED8097006636A1 /* Втулки_нового_образца.jpg in Resources */,
 				0449D2E123ED8097006636A1 /* Головка_блока_целиндров.jpg in Resources */,
+				CE9A2A75259F8A900047412E /* Default-568h@2x.png in Resources */,
 				0449D28323ED8097006636A1 /* Подвисной.jpg in Resources */,
 				0449D29823ED8097006636A1 /* Свечи_некст.jpg in Resources */,
 				0449D28623ED8097006636A1 /* Рукавицы.jpg in Resources */,
@@ -749,6 +803,7 @@
 				0449D2BE23ED8097006636A1 /* Ремкомплект_педали_сцепления.jpg in Resources */,
 				0449D2DB23ED8097006636A1 /* Прокладка_головки_блока.jpg in Resources */,
 				0449D29A23ED8097006636A1 /* Фиксатор_задней_тормозной_колодки.jpg in Resources */,
+				0451935F2594A69100AE3635 /* Сцепление.jpg in Resources */,
 				0449D2B723ED8097006636A1 /* Шарнир_рулевой.jpg in Resources */,
 				0449D2DD23ED8097006636A1 /* Саленблок_ресоры.jpg in Resources */,
 				0449D2CD23ED8097006636A1 /* Гайка_передней_ступицы.jpg in Resources */,
@@ -814,21 +869,27 @@
 			files = (
 				CEECBABC23ECB2FB003FD62A /* MSection.swift in Sources */,
 				0455A2F223E85CE70013F1DB /* PartsViewController.swift in Sources */,
+				CEB6B8AF259BAFFD004BC4D5 /* AlertForAddCar.swift in Sources */,
+				04662B7C258CBCD100910C73 /* SectionHeader.swift in Sources */,
 				04DB6B4123F6B89600ED79CB /* DismissAnimation.swift in Sources */,
 				0466E0EC23E9ABAD00D74118 /* ExpandebleHeaderView.swift in Sources */,
 				CEECBABA23ECB1E1003FD62A /* MPart.swift in Sources */,
+				045A8FE2259B4AB30037FF2D /* DSCameraHandler.swift in Sources */,
 				04DB6B4323F6B8CC00ED79CB /* PanelTransition.swift in Sources */,
 				CE6E104A2402F8D2002DC2D9 /* MenuCell.swift in Sources */,
 				CE42AF862405A65100259135 /* TopOfferViewController.swift in Sources */,
 				04DB6B3F23F6B7AE00ED79CB /* DimmPresentationController.swift in Sources */,
 				0466E0E823E9AB3000D74118 /* InitialData.swift in Sources */,
+				CEC3615F25964FE200AE4133 /* MenuViewExtention.swift in Sources */,
 				0465429323FC0CD500DECD30 /* SelectedItemsTableViewCell.swift in Sources */,
 				0466E0D723E96DFB00D74118 /* CarDetailCell.swift in Sources */,
 				0466E0CF23E968FD00D74118 /* HelperMethods.swift in Sources */,
+				CE9A2A73259F82D30047412E /* ImagePicker.swift in Sources */,
 				04DB6B3C23F6B6FD00ED79CB /* MenuViewController.swift in Sources */,
 				04DB6B4723F6B94900ED79CB /* PresentationController.swift in Sources */,
 				0450E95824177CD500423977 /* Protocols.swift in Sources */,
 				0466E0D923E96FFD00D74118 /* HelperMetodsPars.swift in Sources */,
+				045193632594D06D00AE3635 /* SelectedItem.swift in Sources */,
 				CE6E104823F99164002DC2D9 /* BadgeButtonItem.swift in Sources */,
 				0466E0EE23E9ABF700D74118 /* MenuBar.swift in Sources */,
 				0466E0D123E96BDB00D74118 /* CarTableViewCell.swift in Sources */,
@@ -842,6 +903,7 @@
 				0455A2FB23E85FBA0013F1DB /* CarViewController.swift in Sources */,
 				0455A2F523E85D660013F1DB /* FirstCell.swift in Sources */,
 				0466E0D323E96C6000D74118 /* PopOverForCar.swift in Sources */,
+				045193652594D1DC00AE3635 /* SelectedItemView.swift in Sources */,
 				044F5B6623FD4FC200755066 /* WebController.swift in Sources */,
 				0455A2DA23E8591F0013F1DB /* SceneDelegate.swift in Sources */,
 				CE42AF822405992100259135 /* SparePartReportCell.swift in Sources */,
@@ -852,11 +914,13 @@
 				CE42AF842405A2FE00259135 /* SparePartReportDetailViewController.swift in Sources */,
 				04DB6B4523F6B91900ED79CB /* PresentAnimation.swift in Sources */,
 				CE3FB929240C1D0100B899F5 /* ExtensionImage.swift in Sources */,
+				045193672594DD1E00AE3635 /* SelectedViewContent.swift in Sources */,
 				04506CB623EAF89C002944D1 /* RootViewController.swift in Sources */,
 				CE3FB92F2419550300B899F5 /* ConstInitVC.swift in Sources */,
 				CE42AF882405A70000259135 /* TopCell.swift in Sources */,
 				0466E0E123E9A96400D74118 /* ExtensionViewController.swift in Sources */,
 				0466E0DD23E9A76C00D74118 /* LogedInViewController.swift in Sources */,
+				CEC3615C25964F8800AE4133 /* MenuView.swift in Sources */,
 				0466E0EA23E9AB7E00D74118 /* ExtensionString.swift in Sources */,
 				0466E0D523E96DA600D74118 /* CarDetailViewController.swift in Sources */,
 				0466E0CD23E960AA00D74118 /* CoreDataManager.swift in Sources */,

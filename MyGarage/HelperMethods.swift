@@ -141,21 +141,20 @@ class HelperMethods {
     
     // создание даты для component collection
     func createMSection(numberItem: Int) -> [MSection] {
-        let mSection1 = MSection(type: "CategoriParts", title: "CategoriParts", items: categoriParts)
-        let mSection2 = MSection(type: "Parts", title: "Parts", items: partsNames[numberItem])
-        var array = [MSection]()
 
-//        mSection1.items = categoriParts
-//        mSection1.type = "CategoriParts"
-//        mSection1.title = "CategoriParts"
-        array.append(mSection1)
-        
-//        mSection2.items = partsNames[numberItem]
-//        mSection2.type = "Parts"
-//        mSection2.title = "Parts"
-        array.append(mSection2)
-
-        return array
+        var arraySection = [MSection]()
+        arraySection.append(MSection(type: "CategoriParts", title: "CategoriParts", items: self.createMPart(array: categoriParts)))
+        arraySection.append(MSection(type: "Parts", title: "Parts", items: self.createMPart(array: partsNames[numberItem])))
+        return arraySection
+    }
+    
+    func createMPart(array: [String]) -> [MPart] {
+        var arrayPart = [MPart]()
+        for part in array {
+            let mPart = MPart(partName: part)
+            arrayPart.append(mPart)
+        }
+        return arrayPart
     }
     
     func findLastPrice(part: String) -> ForSaveChoicePart? {

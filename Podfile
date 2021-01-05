@@ -1,3 +1,4 @@
+
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
@@ -6,8 +7,9 @@ target 'MyGarage' do
   use_frameworks!
 
   # Pods for MyGarage
-pod 'Parse'
-pod 'RAMAnimatedTabBarController'
 pod 'Charts'
+pod 'Parse'
+pod 'SwiftEntryKit', '1.2.3'
+pod 'TextFieldEffects'
 
 end

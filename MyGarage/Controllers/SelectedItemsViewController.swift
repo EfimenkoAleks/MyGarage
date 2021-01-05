@@ -341,6 +341,18 @@ class SelectedItemsViewController: UIViewController {
         }
     }
     
+    @objc func internetButton(_ sender: UIButton) {
+        
+        let buttonPosition: CGPoint = sender.convert(CGPoint.init(x: 5.0, y: 5.0), to:self.selectedItemsTableView)
+        guard let indexPath = self.selectedItemsTableView?.indexPathForRow(at: buttonPosition) else { return }
+                let part = self.choiceParts[indexPath.row]
+                let str = "https://www.google.com/search?q=" + "kupit_" + codRusInEng(text: part.name!.lowercased()) + "_gazel"
+        //        let str = "http://www.google.com/search?q=" + "купить_" + (part.name?.lowercased())! + "_газель"
+                let nextVC = WebController(text: str)
+                nextVC.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     func codRusInEng(text: String) -> String {
             var str: String = ""
             for i in text {
@@ -374,8 +386,9 @@ extension SelectedItemsViewController: UITableViewDataSource, UITableViewDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! SelectedItemsTableViewCell
         
         cell.nameLabel.text = choiceParts[indexPath.row].name
-        cell.countLabel.text = choiceParts[indexPath.row].count
-        cell.priceLabel.text = choiceParts[indexPath.row].price
+        cell.numberCountLabel.text = choiceParts[indexPath.row].count
+        cell.numberPriceLabel.text = choiceParts[indexPath.row].price
+        cell.internetButton.addTarget(self, action: #selector(SelectedItemsViewController.internetButton(_:)), for: .touchUpInside)
         if let image = choiceParts[indexPath.row].name {
             cell.nameImage.image = UIImage(named: image + ".jpg")
             if cell.nameImage.image == nil {
@@ -384,11 +397,11 @@ extension SelectedItemsViewController: UITableViewDataSource, UITableViewDelegat
             }
           
         }
-        cell.accessoryType = .detailButton
-        cell.tintColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
+//        cell.accessoryType = .detailButton
+//        cell.tintColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
   //      cell.accessoryView = UIImageView(image: UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(scale: .large)))
        
-        cell.backgroundColor = indexPath.row%2 == 0 ? #colorLiteral(red: 0.840382874, green: 0.9280859828, blue: 0.9567258954, alpha: 1) : #colorLiteral(red: 0.840382874, green: 0.9280859828, blue: 0.9567258954, alpha: 1)
+        cell.backgroundColor = indexPath.row%2 == 0 ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
  //       cell.accessoryView = UIImageView(image: UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(scale: .large)))
     
         return cell
@@ -412,17 +425,17 @@ extension SelectedItemsViewController: UITableViewDataSource, UITableViewDelegat
         self.myIndexPatch = indexPath
     }
     
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+//    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
 
-//        print("accessoryButtonTapped")
-        let part = self.choiceParts[indexPath.row]
-        let str = "https://www.google.com/search?q=" + "kupit_" + codRusInEng(text: part.name!.lowercased()) + "_gazel"
-//        let str = "http://www.google.com/search?q=" + "купить_" + (part.name?.lowercased())! + "_газель"
-        let nextVC = WebController(text: str)
-        nextVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(nextVC, animated: true)
+////        print("accessoryButtonTapped")
+//        let part = self.choiceParts[indexPath.row]
+//        let str = "https://www.google.com/search?q=" + "kupit_" + codRusInEng(text: part.name!.lowercased()) + "_gazel"
+////        let str = "http://www.google.com/search?q=" + "купить_" + (part.name?.lowercased())! + "_газель"
+//        let nextVC = WebController(text: str)
+//        nextVC.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(nextVC, animated: true)
       
-    }
+//    }
     
     private func forPickerViewInstal() {
         self.stringPicker = UIPickerView()

@@ -86,8 +86,6 @@ class CarDetailCell: UITableViewCell {
 
         self.selectionStyle = .none
         self.layer.cornerRadius = 10.0
-        self.backgroundColor = #colorLiteral(red: 0.840382874, green: 0.9280859828, blue: 0.9567258954, alpha: 1)
-       
     }
 
 }
