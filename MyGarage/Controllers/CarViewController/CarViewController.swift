@@ -11,9 +11,6 @@ import UIKit
 import Parse
 import SwiftEntryKit
 
-
-//class CarNavigationController: UINavigationController { }
-
 class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationControllerDelegate {
     
     var carsTableView: UITableView?
@@ -25,26 +22,17 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
     weak var delegate: RootControllerDelegate?
     var nameView: AlertForAddCar?
     
-    private lazy var imagePicker = ImagePicker()
+    lazy var imagePicker = ImagePicker()
     private weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.addTable()
-
         self.reloadCarTable()
-
         carsTableView?.register(CarTableViewCell.self, forCellReuseIdentifier: cellId)
-  
         self.setupNavigationBar()
         imagePicker.delegate = self
-
-//        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.myviewTapped))
-//                tapGesture.numberOfTapsRequired = 2
-//                tapGesture.numberOfTouchesRequired = 1
-//                viewTap.addGestureRecognizer(tapGesture)
-//                viewTap.isUserInteractionEnabled = true
 
         NotificationCenter.default.addObserver(self, selector: #selector(CarViewController.refreshTable(notification:)), name: NSNotification.Name(rawValue: "refresh"), object: nil)
     }
@@ -58,12 +46,12 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
     }
     
 // MARK: для pickerView
-    private func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
+    func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
         imagePicker.present(parent: self, sourceType: sourceType)
     }
 
-    private func photoButtonTapped() { imagePicker.photoGalleryAsscessRequest() }
-    private func cameraButtonTapped() { imagePicker.cameraAsscessRequest() }
+    func photoButtonTapped() { imagePicker.photoGalleryAsscessRequest() }
+    func cameraButtonTapped() { imagePicker.cameraAsscessRequest() }
 //---------------------------------------------------
     
     @objc func backButton() {
@@ -99,11 +87,7 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
     private func setupNavigationBar() {
         
         navigationController?.navigationBar.backgroundColor = MySettings.shared.gcolorNavBar
-        
-        //        let image = UIImage(named: "back")
-        //        let imageTemp = image?.withRenderingMode(.alwaysTemplate)
-        //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageTemp, style: .plain, target: self, action: #selector(CarViewController.backButton))
-         
+   
                 let imageCar = UIImage(systemName: "car", withConfiguration: UIImage.SymbolConfiguration(scale: .large))
                 let imageTempCar = imageCar?.withRenderingMode(.alwaysTemplate)
                 let backButton = UIBarButtonItem(image: imageTempCar, style: .plain, target: self, action: #selector(CarViewController.backButton))
@@ -139,14 +123,9 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
           let image1 = UIImage(named: "internet")
           let imageTemp1 = image1?.withRenderingMode(.alwaysTemplate)
           internetButton.setImage(imageTemp1, for: .normal)
-        //  internetButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
           internetButton.addTarget(self, action: #selector(self.tapped), for: .touchUpInside)
 
           navigationItem.rightBarButtonItems = [createButton, UIBarButtonItem(customView: internetButton)]
-          
-//        let imageLog = UIImage(named: "log-out")
-//               let imageTempLog = imageLog?.withRenderingMode(.alwaysTemplate)
-//               navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageTempLog, style: .plain, target: self, action: #selector(CarViewController.backButton))
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.backgroundColor = .white
@@ -155,15 +134,10 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
          //       if #available(iOS 11.0, *) {
         //        navigationController?.navigationBar.prefersLargeTitles = true
         //        }
- //               title = "Cars"
-
-           //     navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"carForBar")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(setupBarButton))
     }
 
 //    @objc func backButton() {
-//
 //        currentUserConst = nil
-//
 //    let nextVC = RegistrViewController()
 //    self.navigationController?.pushViewController(nextVC, animated: true)
 //    self.navigationController?.dismiss(animated: true, completion: nil)
@@ -191,48 +165,6 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
         self.reloadCarTable()
     }
 
-    //MARK: SetapButton for left button
-
-//    private func setButton() {
-//        let button =  UIButton(type: .custom)
-//        button.setImage(UIImage(named: "internet")?.withRenderingMode(.alwaysTemplate), for: .normal)
-//        button.frame = CGRect(x: 0, y: 0, width: 80, height: 31)
-//        button.addTarget(self, action: #selector(self.tapped), for: .touchUpInside)
-//        button.imageView?.contentMode = .scaleAspectFit
-//        let barButton = UIBarButtonItem(customView: button)
-//        self.navigationItem.rightBarButtonItem = barButton
-//    }
-
-//    @objc func setupBarButton(){
-//        let alert1 = UIAlertController(title: "Name", message: "Enter name", preferredStyle: UIAlertController.Style.alert)
-//
-//        alert1.addTextField { (textField) in
-//            textField.placeholder = "name"
-//        }
-//        alert1.addTextField { (textField) in
-//            textField.placeholder = "subname"
-//        }
-//        alert1.addTextField { (textField) in
-//            textField.placeholder = "number"
-//        }
-//
-//        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default) { (action) in
-//
-//            if let nameTextFild = alert1.textFields?[0].text, let subNameTextFild = alert1.textFields?[1].text, let numderTextFild = alert1.textFields?[2].text {
-//                if nameTextFild.count > 0 && subNameTextFild.count > 0 && numderTextFild.count > 0 {
-//                    CoreDataManager.sharedManager.saveCar(name: nameTextFild, subName: subNameTextFild, number: numderTextFild, bool: true, masiv: nil)
-//
-//                self.reloadMyTable()
-//                }
-//            }
-//        }
-//        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-//
-//        alert1.addAction(saveAction)
-//        alert1.addAction(cancelAction)
-//        present(alert1, animated: true, completion: nil)
-//    }
-
     //MARK: Set background for ViewController
 
     override func viewWillLayoutSubviews() {
@@ -242,9 +174,7 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
     //MARK: PopOverViewController for button
 
     @objc private func tapped() {
-
-//        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopOverForCar") else {
-
+        
         let popVC = PopOverForCar()
         popVC.modalPresentationStyle = .popover
         let popOverVC  = popVC.popoverPresentationController
@@ -260,13 +190,6 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
  //       guard let popVC = storyboard?.instantiateInitialViewController() as? PopOverForCar else { return }
     }
 
-//    private func updateLayout(with size: CGSize) {
-//        self.carsTableView.frame = CGRect.init(origin: .zero, size: size)
-//         HelperMethods.shared.setBackGround(view: self.view, tableView: self.carsTableView, size: size)
-//        DispatchQueue.main.async {
-//            self.carsTableView.reloadData()
-//        }
-//    }
     
 //MARK:     для swiftEntryKit
 //     private func setupAttributes() -> EKAttributes {
@@ -294,123 +217,11 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
         self.nameView = AlertForAddCar(frame: .init(origin: .zero, size: self.view.frame.size))
         guard let nameview = self.nameView else { return }
         nameview.delegate = self
-//        let blureView = UIView(frame: CGRect(origin: .zero, size: self.view.frame.size))
-//        blureView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).withAlphaComponent(0.7)
-//        blureView.addSubview(nameview)
         self.view.addSubview(nameview)
-//        nameview.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -100).isActive = true
-//        nameview.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-//        nameview.widthAnchor.constraint(equalToConstant: self.view.bounds.width / 5 * 4).isActive = true
-//        nameview.heightAnchor.constraint(equalToConstant: 320).isActive = true
-        
+
 //        SwiftEntryKit.display(entry: nameView, using: self.setupAttributes())
     }
      //---------------------------------------
-
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refresh"), object: nil)
-        print("deinit CarVC")
-    }
-}
-
-extension CarViewController: UITableViewDataSource, UITableViewDelegate {
-
-    //MARK: UICollectionViewDataSourse
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cars.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! CarTableViewCell
-        
-        var image = UIImage(named: "iconCar")
-        if let imag = cars[indexPath.row].image {
-            image = UIImage(data: imag)
-        }
-        cell.carImageView.image = image
-        print(cars[indexPath.row].image ?? "image nil")
-        cell.nameLabel.text = cars[indexPath.row].name
-        print(cars[indexPath.row].name ?? "name nil")
-        cell.subNameLabel.text = cars[indexPath.row].subName
-        print(cars[indexPath.row].subName ?? "subName nil")
-        cell.numberLabel.text = cars[indexPath.row].number
-        print(cars[indexPath.row].number ?? "number nil")
-
-        cell.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1).withAlphaComponent(0.2)
- //       cell.layer.borderWidth = 1
-//        cell.layer.borderColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
-
-        return cell
-    }
-
-    //MARK: UICollectionViewDelegate
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-
-        CoreDataManager.sharedManager.delete(cars[indexPath.row])
-        self.cars = CoreDataManager.sharedManager.fetchAllCars()!
-        self.carsTableView!.reloadData()
-    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 48
-//    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let car = self.cars[indexPath.row]
-        let dictionary = ["name": car.name, "subName": car.subName, "number": car.number]
-        UserDefaults.standard.set(dictionary, forKey: "kdictionaryCar")
-        UserDefaults.standard.synchronize()
-
-//        AppDelegate.shared.rootViewController.showCarDetail()
-        
-        let nextVC = CarDetailViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
-
-    //    performSegue(withIdentifier: "CarDetail", sender: car)
-    }
-
-    //MARK: Rotate Cell
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        let degree: Double = 90
-        let rotationAngle = CGFloat(degree * Double.pi / 180)
-        let rotationTransform = CATransform3DMakeRotation(rotationAngle, 1, 0, 0)
-        cell.layer.transform = rotationTransform
-
-        UIView.animate(withDuration: 1, delay: 0.2 * Double(indexPath.row), options: .curveEaseInOut, animations: {
-            cell.layer.transform = CATransform3DIdentity
-        }, completion: nil)
-
-//        let translationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 400, 0)
-//        cell.layer.transform = translationTransform
-//        UIView.animate(withDuration: 1, delay: 0.2 * Double(indexPath.row), options: .curveEaseInOut, animations: {
-//            cell.layer.transform = CATransform3DIdentity
-//        }, completion: nil)
-    }
-
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-
-//        super.viewWillTransition(to: size, with: coordinator)
-//        coordinator.animate(alongsideTransition: { (contex) in
-//            self.updateLayout(with: size)
-//        }, completion: nil)
-//    }
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "CarDetail" {
-//            if let carDetail = segue.destination as? CarDetailViewController {
-//                if let car = sender as? Car {
-//                    carDetail.titleCar = car.number!
-//                    carDetail.curentCar = car
-//                }
-//            }
-//        }
-//    }
-
     func reloadCarTable() {
         if let carFetches = CoreDataManager.sharedManager.fetchAllCars() {
             if carFetches.count > 0 {
@@ -419,22 +230,11 @@ extension CarViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-
-//    @objc func myviewTapped(sender: UITapGestureRecognizer) {
-//                guard sender.view != nil else { return }
-//
-//                    if sender.state == .ended {
-//                       self.reloadMyTable()
-//                }
-//    }
-
-}
-
-extension CarViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refresh"), object: nil)
+        print("deinit CarVC")
+    }
 }
 
 extension CarViewController {
@@ -468,25 +268,9 @@ extension CarViewController {
 //        picker.dismiss(animated: true, completion: nil)
 //    }
 }
-//MARK: ImagePicker
-extension CarViewController: ImagePickerDelegate {
 
-    func imagePickerDelegate(didSelect image: UIImage, delegatedForm: ImagePicker) {
-        if self.nameView != nil {
-            self.nameView?.carImageView.image = image
-        }
-//        imageView.image = image
-        imagePicker.dismiss()
-    }
-
-    func imagePickerDelegate(didCancel delegatedForm: ImagePicker) { imagePicker.dismiss() }
-
-    func imagePickerDelegate(canUseGallery accessIsAllowed: Bool, delegatedForm: ImagePicker) {
-        if accessIsAllowed { presentImagePicker(sourceType: .photoLibrary) }
-    }
-
-    func imagePickerDelegate(canUseCamera accessIsAllowed: Bool, delegatedForm: ImagePicker) {
-        // works only on real device (crash on simulator)
-        if accessIsAllowed { presentImagePicker(sourceType: .camera) }
+extension CarViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

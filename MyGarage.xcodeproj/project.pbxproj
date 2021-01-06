@@ -130,6 +130,8 @@
 		0455A2F923E85E750013F1DB /* ProtocolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2F823E85E750013F1DB /* ProtocolCell.swift */; };
 		0455A2FB23E85FBA0013F1DB /* CarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2FA23E85FBA0013F1DB /* CarViewController.swift */; };
 		045A8FE2259B4AB30037FF2D /* DSCameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */; };
+		045CD86E25A5B9A000C75C9A /* CreateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CD86D25A5B9A000C75C9A /* CreateTableView.swift */; };
+		045CD87025A5C33C00C75C9A /* CarImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CD86F25A5C33C00C75C9A /* CarImagePicker.swift */; };
 		0465429123FC0C1800DECD30 /* SelectedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */; };
 		0465429323FC0CD500DECD30 /* SelectedItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */; };
 		04662B7C258CBCD100910C73 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04662B7B258CBCD100910C73 /* SectionHeader.swift */; };
@@ -165,6 +167,9 @@
 		CE42AF842405A2FE00259135 /* SparePartReportDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42AF832405A2FE00259135 /* SparePartReportDetailViewController.swift */; };
 		CE42AF862405A65100259135 /* TopOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42AF852405A65100259135 /* TopOfferViewController.swift */; };
 		CE42AF882405A70000259135 /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42AF872405A70000259135 /* TopCell.swift */; };
+		CE4C46A725A52B1500D63553 /* FirstController.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C46A625A52B1500D63553 /* FirstController.png */; };
+		CE4C46A925A52B2400D63553 /* SideMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C46A825A52B2400D63553 /* SideMenu.png */; };
+		CE4C46AB25A52B2B00D63553 /* AddAvto1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C46AA25A52B2B00D63553 /* AddAvto1.png */; };
 		CE6E104823F99164002DC2D9 /* BadgeButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E104723F99164002DC2D9 /* BadgeButtonItem.swift */; };
 		CE6E104A2402F8D2002DC2D9 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10492402F8D2002DC2D9 /* MenuCell.swift */; };
 		CE9A2A73259F82D30047412E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A2A72259F82D30047412E /* ImagePicker.swift */; };
@@ -302,6 +307,8 @@
 		0455A2F823E85E750013F1DB /* ProtocolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolCell.swift; sourceTree = "<group>"; };
 		0455A2FA23E85FBA0013F1DB /* CarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewController.swift; sourceTree = "<group>"; };
 		045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCameraHandler.swift; sourceTree = "<group>"; };
+		045CD86D25A5B9A000C75C9A /* CreateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTableView.swift; sourceTree = "<group>"; };
+		045CD86F25A5C33C00C75C9A /* CarImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarImagePicker.swift; sourceTree = "<group>"; };
 		0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsViewController.swift; sourceTree = "<group>"; };
 		0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsTableViewCell.swift; sourceTree = "<group>"; };
 		04662B7B258CBCD100910C73 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -339,6 +346,9 @@
 		CE42AF832405A2FE00259135 /* SparePartReportDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparePartReportDetailViewController.swift; sourceTree = "<group>"; };
 		CE42AF852405A65100259135 /* TopOfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopOfferViewController.swift; sourceTree = "<group>"; };
 		CE42AF872405A70000259135 /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
+		CE4C46A625A52B1500D63553 /* FirstController.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FirstController.png; sourceTree = "<group>"; };
+		CE4C46A825A52B2400D63553 /* SideMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SideMenu.png; sourceTree = "<group>"; };
+		CE4C46AA25A52B2B00D63553 /* AddAvto1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddAvto1.png; sourceTree = "<group>"; };
 		CE6E104723F99164002DC2D9 /* BadgeButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButtonItem.swift; sourceTree = "<group>"; };
 		CE6E10492402F8D2002DC2D9 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		CE9A2A72259F82D30047412E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -525,6 +535,9 @@
 				0455A2E823E859320013F1DB /* Info.plist */,
 				0466E0CC23E960AA00D74118 /* CoreDataManager.swift */,
 				0466E0CE23E968FD00D74118 /* HelperMethods.swift */,
+				CE4C46A825A52B2400D63553 /* SideMenu.png */,
+				CE4C46AA25A52B2B00D63553 /* AddAvto1.png */,
+				CE4C46A625A52B1500D63553 /* FirstController.png */,
 				0466E0D823E96FFD00D74118 /* HelperMetodsPars.swift */,
 			);
 			path = MyGarage;
@@ -633,6 +646,8 @@
 			children = (
 				0455A2FA23E85FBA0013F1DB /* CarViewController.swift */,
 				CEB6B8AE259BAFFD004BC4D5 /* AlertForAddCar.swift */,
+				045CD86D25A5B9A000C75C9A /* CreateTableView.swift */,
+				045CD86F25A5C33C00C75C9A /* CarImagePicker.swift */,
 			);
 			path = CarViewController;
 			sourceTree = "<group>";
@@ -752,6 +767,8 @@
 				0449D2DA23ED8097006636A1 /* Гайка_колеса.jpg in Resources */,
 				0449D2B923ED8097006636A1 /* Шаровая_опора_верх.jpg in Resources */,
 				0449D2A123ED8097006636A1 /* Патрубки_системы_охлаждения.jpg in Resources */,
+				CE4C46A925A52B2400D63553 /* SideMenu.png in Resources */,
+				CE4C46A725A52B1500D63553 /* FirstController.png in Resources */,
 				0449D29E23ED8097006636A1 /* Подшибник.jpg in Resources */,
 				0449D2B423ED8097006636A1 /* Бензонасос_электро.jpg in Resources */,
 				0449D2AA23ED8097006636A1 /* Диск_опорный.jpg in Resources */,
@@ -791,6 +808,7 @@
 				0449D28D23ED8097006636A1 /* Радиатор_охлаждения.jpg in Resources */,
 				0449D2D823ED8097006636A1 /* Главная_пара.jpg in Resources */,
 				0449D2D323ED8097006636A1 /* Тормозная_жидкость.jpg in Resources */,
+				CE4C46AB25A52B2B00D63553 /* AddAvto1.png in Resources */,
 				0449D2A423ED8097006636A1 /* Генератор.jpg in Resources */,
 				0449D29723ED8097006636A1 /* Подшидники_редуктора_заднего_моста.jpg in Resources */,
 				0449D22123ED805B006636A1 /* Система_охлаждения.jpg in Resources */,
@@ -897,6 +915,7 @@
 				0455A2F023E85C000013F1DB /* MainTabBarController.swift in Sources */,
 				0466E0DF23E9A79700D74118 /* SignUpViewController.swift in Sources */,
 				0465429123FC0C1800DECD30 /* SelectedItemsViewController.swift in Sources */,
+				045CD87025A5C33C00C75C9A /* CarImagePicker.swift in Sources */,
 				CE42AF802404665900259135 /* SparePartsReportsViewController.swift in Sources */,
 				0466E0DB23E9A73400D74118 /* RegistrViewController.swift in Sources */,
 				0455A2E223E8591F0013F1DB /* MyGarage.xcdatamodeld in Sources */,
@@ -904,6 +923,7 @@
 				0455A2F523E85D660013F1DB /* FirstCell.swift in Sources */,
 				0466E0D323E96C6000D74118 /* PopOverForCar.swift in Sources */,
 				045193652594D1DC00AE3635 /* SelectedItemView.swift in Sources */,
+				045CD86E25A5B9A000C75C9A /* CreateTableView.swift in Sources */,
 				044F5B6623FD4FC200755066 /* WebController.swift in Sources */,
 				0455A2DA23E8591F0013F1DB /* SceneDelegate.swift in Sources */,
 				CE42AF822405992100259135 /* SparePartReportCell.swift in Sources */,
