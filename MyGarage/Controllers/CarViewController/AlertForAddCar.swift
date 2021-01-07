@@ -12,7 +12,7 @@ import TextFieldEffects
 
 class AlertForAddCar: UIView {
     
-    weak var delegate: PicerPhotoCarProtocol?
+    weak var delegate: PicerPhotoCarBelegate?
     
     var alertTitlLabel: UILabel = {
         let lb = UILabel()

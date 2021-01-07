@@ -132,6 +132,7 @@
 		045A8FE2259B4AB30037FF2D /* DSCameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */; };
 		045CD86E25A5B9A000C75C9A /* CreateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CD86D25A5B9A000C75C9A /* CreateTableView.swift */; };
 		045CD87025A5C33C00C75C9A /* CarImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CD86F25A5C33C00C75C9A /* CarImagePicker.swift */; };
+		045CD87325A5F48700C75C9A /* ExtensionPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CD87225A5F48700C75C9A /* ExtensionPartViewController.swift */; };
 		0465429123FC0C1800DECD30 /* SelectedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */; };
 		0465429323FC0CD500DECD30 /* SelectedItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */; };
 		04662B7C258CBCD100910C73 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04662B7B258CBCD100910C73 /* SectionHeader.swift */; };
@@ -170,6 +171,8 @@
 		CE4C46A725A52B1500D63553 /* FirstController.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C46A625A52B1500D63553 /* FirstController.png */; };
 		CE4C46A925A52B2400D63553 /* SideMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C46A825A52B2400D63553 /* SideMenu.png */; };
 		CE4C46AB25A52B2B00D63553 /* AddAvto1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE4C46AA25A52B2B00D63553 /* AddAvto1.png */; };
+		CE4C46AD25A65B5800D63553 /* CreateBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C46AC25A65B5800D63553 /* CreateBlurView.swift */; };
+		CE4C46AF25A7481800D63553 /* ExtensionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C46AE25A7481800D63553 /* ExtensionCollectionView.swift */; };
 		CE6E104823F99164002DC2D9 /* BadgeButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E104723F99164002DC2D9 /* BadgeButtonItem.swift */; };
 		CE6E104A2402F8D2002DC2D9 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E10492402F8D2002DC2D9 /* MenuCell.swift */; };
 		CE9A2A73259F82D30047412E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A2A72259F82D30047412E /* ImagePicker.swift */; };
@@ -309,6 +312,7 @@
 		045A8FE1259B4AB30037FF2D /* DSCameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCameraHandler.swift; sourceTree = "<group>"; };
 		045CD86D25A5B9A000C75C9A /* CreateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTableView.swift; sourceTree = "<group>"; };
 		045CD86F25A5C33C00C75C9A /* CarImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarImagePicker.swift; sourceTree = "<group>"; };
+		045CD87225A5F48700C75C9A /* ExtensionPartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionPartViewController.swift; sourceTree = "<group>"; };
 		0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsViewController.swift; sourceTree = "<group>"; };
 		0465429223FC0CD500DECD30 /* SelectedItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemsTableViewCell.swift; sourceTree = "<group>"; };
 		04662B7B258CBCD100910C73 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -349,6 +353,8 @@
 		CE4C46A625A52B1500D63553 /* FirstController.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FirstController.png; sourceTree = "<group>"; };
 		CE4C46A825A52B2400D63553 /* SideMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SideMenu.png; sourceTree = "<group>"; };
 		CE4C46AA25A52B2B00D63553 /* AddAvto1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddAvto1.png; sourceTree = "<group>"; };
+		CE4C46AC25A65B5800D63553 /* CreateBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBlurView.swift; sourceTree = "<group>"; };
+		CE4C46AE25A7481800D63553 /* ExtensionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCollectionView.swift; sourceTree = "<group>"; };
 		CE6E104723F99164002DC2D9 /* BadgeButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeButtonItem.swift; sourceTree = "<group>"; };
 		CE6E10492402F8D2002DC2D9 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		CE9A2A72259F82D30047412E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -548,7 +554,7 @@
 			children = (
 				04DB6B3D23F6B77700ED79CB /* SlaydMenu */,
 				0455A2EF23E85C000013F1DB /* MainTabBarController.swift */,
-				0455A2F123E85CE70013F1DB /* PartsViewController.swift */,
+				045CD87125A5EA8B00C75C9A /* PartViewController */,
 				0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */,
 				045193662594DD1E00AE3635 /* SelectedViewContent.swift */,
 				CEB6B8AD259BAFA2004BC4D5 /* CarViewController */,
@@ -586,6 +592,17 @@
 				CE9A2A72259F82D30047412E /* ImagePicker.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		045CD87125A5EA8B00C75C9A /* PartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0455A2F123E85CE70013F1DB /* PartsViewController.swift */,
+				045CD87225A5F48700C75C9A /* ExtensionPartViewController.swift */,
+				CE4C46AC25A65B5800D63553 /* CreateBlurView.swift */,
+				CE4C46AE25A7481800D63553 /* ExtensionCollectionView.swift */,
+			);
+			path = PartViewController;
 			sourceTree = "<group>";
 		};
 		0466E0E223E9AA6400D74118 /* Models */ = {
@@ -900,6 +917,7 @@
 				0466E0E823E9AB3000D74118 /* InitialData.swift in Sources */,
 				CEC3615F25964FE200AE4133 /* MenuViewExtention.swift in Sources */,
 				0465429323FC0CD500DECD30 /* SelectedItemsTableViewCell.swift in Sources */,
+				CE4C46AD25A65B5800D63553 /* CreateBlurView.swift in Sources */,
 				0466E0D723E96DFB00D74118 /* CarDetailCell.swift in Sources */,
 				0466E0CF23E968FD00D74118 /* HelperMethods.swift in Sources */,
 				CE9A2A73259F82D30047412E /* ImagePicker.swift in Sources */,
@@ -930,6 +948,7 @@
 				0455A2F723E85D780013F1DB /* SecondCell.swift in Sources */,
 				CE3FB92B24102C7400B899F5 /* QrCodeController.swift in Sources */,
 				0466E0E623E9AAC700D74118 /* Section.swift in Sources */,
+				045CD87325A5F48700C75C9A /* ExtensionPartViewController.swift in Sources */,
 				0455A2F923E85E750013F1DB /* ProtocolCell.swift in Sources */,
 				CE42AF842405A2FE00259135 /* SparePartReportDetailViewController.swift in Sources */,
 				04DB6B4523F6B91900ED79CB /* PresentAnimation.swift in Sources */,
@@ -942,6 +961,7 @@
 				0466E0DD23E9A76C00D74118 /* LogedInViewController.swift in Sources */,
 				CEC3615C25964F8800AE4133 /* MenuView.swift in Sources */,
 				0466E0EA23E9AB7E00D74118 /* ExtensionString.swift in Sources */,
+				CE4C46AF25A7481800D63553 /* ExtensionCollectionView.swift in Sources */,
 				0466E0D523E96DA600D74118 /* CarDetailViewController.swift in Sources */,
 				0466E0CD23E960AA00D74118 /* CoreDataManager.swift in Sources */,
 				0466E0E423E9AA7C00D74118 /* User.swift in Sources */,

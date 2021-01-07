@@ -11,7 +11,7 @@ import UIKit
 import Parse
 import SwiftEntryKit
 
-class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationControllerDelegate {
+class CarViewController: UIViewController, PicerPhotoCarBelegate, UINavigationControllerDelegate {
     
     var carsTableView: UITableView?
 //    weak var delegate: ViewLIneProtocol?
@@ -217,6 +217,7 @@ class CarViewController: UIViewController, PicerPhotoCarProtocol, UINavigationCo
         self.nameView = AlertForAddCar(frame: .init(origin: .zero, size: self.view.frame.size))
         guard let nameview = self.nameView else { return }
         nameview.delegate = self
+    
         self.view.addSubview(nameview)
 
 //        SwiftEntryKit.display(entry: nameView, using: self.setupAttributes())

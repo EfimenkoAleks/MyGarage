@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol ViewLIneProtocol: class {
+    func moveLine(tag: Int)
+}
+
 protocol MenuVCProtocol: class {
     func showController(name: String)
 }
@@ -21,7 +25,11 @@ protocol SlideMenuDegate: class {
     func createMenu()
 }
 
-protocol PicerPhotoCarProtocol: class {
+protocol PicerPhotoCarBelegate: class {
     func takePhoto()
     func reloadCarTable()
+}
+
+protocol BageDelegate: class {
+    func setBage()
 }
