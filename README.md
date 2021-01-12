@@ -6,14 +6,14 @@
 
    Боковое меню 
    
-![Image alt](https://github.com/EfimenkoAleksandr/MyGarage/blob/master/MyGarage/SideMenu.png)
+![Image alt](https://github.com/EfimenkoAleksandr/MyGarage/blob/develop/MyGarage/SideMenu.png)
 
 
    Контроллер выбора авто запчастей
    
-![Image alt](https://github.com/EfimenkoAleksandr/MyGarage/blob/master/MyGarage/FirstController.png)
+![Image alt](https://github.com/EfimenkoAleksandr/MyGarage/blob/develop/MyGarage/FirstController.png)
 
 
    Контроллер добавления автомобилей
    
-![Image alt](https://github.com/EfimenkoAleksandr/MyGarage/blob/master/MyGarage/AddAvto1.png)
+![Image alt](https://github.com/EfimenkoAleksandr/MyGarage/blob/develop/MyGarage/AddAvto1.png)
