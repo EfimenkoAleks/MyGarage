@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19H114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Car" representedClassName="Car" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="keySave" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -7,7 +7,8 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="String"/>
         <attribute name="subName" optional="YES" attributeType="String"/>
-        <relationship name="carDetail" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CarDetail" inverseName="masivCarProperty" inverseEntity="CarDetail"/>
+        <relationship name="carDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CarDetail" inverseName="masivCarProperty" inverseEntity="CarDetail"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserChoicePart" inverseName="setCar" inverseEntity="UserChoicePart"/>
     </entity>
     <entity name="CarDetail" representedClassName="CarDetail" syncable="YES" codeGenerationType="class">
         <attribute name="dateOfBirth" optional="YES" attributeType="String"/>
@@ -19,6 +20,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="seller" optional="YES" attributeType="String"/>
+        <relationship name="userChoicePart" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserChoicePart" inverseName="setChoicePart" inverseEntity="UserChoicePart"/>
     </entity>
     <entity name="ForSaveChoicePart" representedClassName="ForSaveChoicePart" syncable="YES" codeGenerationType="class">
         <attribute name="count" optional="YES" attributeType="String"/>
@@ -34,13 +36,21 @@
         <attribute name="dateCreation" optional="YES" attributeType="String"/>
         <attribute name="expanded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="forSaveCP" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ForSaveChoicePart" inverseName="masivChoisePart" inverseEntity="ForSaveChoicePart"/>
+        <relationship name="userCP" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserChoicePart" inverseName="setMasivCP" inverseEntity="UserChoicePart"/>
+    </entity>
+    <entity name="UserChoicePart" representedClassName="UserChoicePart" syncable="YES" codeGenerationType="class">
+        <attribute name="keyUser" optional="YES" attributeType="String"/>
+        <relationship name="setCar" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Car" inverseName="user" inverseEntity="Car"/>
+        <relationship name="setChoicePart" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChoicePart" inverseName="userChoicePart" inverseEntity="ChoicePart"/>
+        <relationship name="setMasivCP" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MasivChoiceParts" inverseName="userCP" inverseEntity="MasivChoiceParts"/>
     </entity>
     <elements>
-        <element name="Car" positionX="-412.3125" positionY="-152.08984375" width="128" height="148"/>
-        <element name="CarDetail" positionX="-222.55078125" positionY="-107.296875" width="128" height="88"/>
-        <element name="ChoicePart" positionX="75.5390625" positionY="-118.09375" width="128" height="103"/>
-        <element name="ForSaveChoicePart" positionX="-192.03125" positionY="77.734375" width="128" height="118"/>
-        <element name="KeyForParse" positionX="72.2109375" positionY="43.7421875" width="128" height="58"/>
-        <element name="MasivChoiceParts" positionX="-411.66796875" positionY="107.359375" width="128" height="88"/>
+        <element name="Car" positionX="-638.8046875" positionY="-279.51171875" width="128" height="163"/>
+        <element name="CarDetail" positionX="-424.0546875" positionY="-123.0625" width="128" height="88"/>
+        <element name="ChoicePart" positionX="-573.5" positionY="36.25390625" width="128" height="118"/>
+        <element name="ForSaveChoicePart" positionX="-869.3125" positionY="19.8125" width="128" height="118"/>
+        <element name="KeyForParse" positionX="-412.21484375" positionY="-327.9296875" width="128" height="58"/>
+        <element name="MasivChoiceParts" positionX="-1078.671875" positionY="-149.90234375" width="128" height="103"/>
+        <element name="UserChoicePart" positionX="-859.8671875" positionY="-461.37890625" width="128" height="103"/>
     </elements>
 </model>

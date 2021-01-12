@@ -227,7 +227,9 @@ class CarViewController: UIViewController, PicerPhotoCarBelegate, UINavigationCo
         if let carFetches = CoreDataManager.sharedManager.fetchAllCars() {
             if carFetches.count > 0 {
                 self.cars = carFetches
-                self.carsTableView!.reloadData()
+                DispatchQueue.main.async {
+                    self.carsTableView!.reloadData()
+                }
             }
         }
     }

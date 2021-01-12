@@ -117,7 +117,6 @@
 		045193612594A69F00AE3635 /* Запчасть_сцепление.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 045193602594A69F00AE3635 /* Запчасть_сцепление.jpg */; };
 		045193632594D06D00AE3635 /* SelectedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045193622594D06D00AE3635 /* SelectedItem.swift */; };
 		045193652594D1DC00AE3635 /* SelectedItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045193642594D1DC00AE3635 /* SelectedItemView.swift */; };
-		045193672594DD1E00AE3635 /* SelectedViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045193662594DD1E00AE3635 /* SelectedViewContent.swift */; };
 		0455A2D823E8591F0013F1DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2D723E8591F0013F1DB /* AppDelegate.swift */; };
 		0455A2DA23E8591F0013F1DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2D923E8591F0013F1DB /* SceneDelegate.swift */; };
 		0455A2E223E8591F0013F1DB /* MyGarage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0455A2E023E8591F0013F1DB /* MyGarage.xcdatamodeld */; };
@@ -295,7 +294,6 @@
 		045193602594A69F00AE3635 /* Запчасть_сцепление.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Запчасть_сцепление.jpg"; sourceTree = "<group>"; };
 		045193622594D06D00AE3635 /* SelectedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItem.swift; sourceTree = "<group>"; };
 		045193642594D1DC00AE3635 /* SelectedItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedItemView.swift; sourceTree = "<group>"; };
-		045193662594DD1E00AE3635 /* SelectedViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewContent.swift; sourceTree = "<group>"; };
 		0455A2D423E8591F0013F1DB /* MyGarage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyGarage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0455A2D723E8591F0013F1DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0455A2D923E8591F0013F1DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -556,7 +554,6 @@
 				0455A2EF23E85C000013F1DB /* MainTabBarController.swift */,
 				045CD87125A5EA8B00C75C9A /* PartViewController */,
 				0465429023FC0C1800DECD30 /* SelectedItemsViewController.swift */,
-				045193662594DD1E00AE3635 /* SelectedViewContent.swift */,
 				CEB6B8AD259BAFA2004BC4D5 /* CarViewController */,
 				0466E0D423E96DA600D74118 /* CarDetailViewController.swift */,
 				0466E0D223E96C6000D74118 /* PopOverForCar.swift */,
@@ -953,7 +950,6 @@
 				CE42AF842405A2FE00259135 /* SparePartReportDetailViewController.swift in Sources */,
 				04DB6B4523F6B91900ED79CB /* PresentAnimation.swift in Sources */,
 				CE3FB929240C1D0100B899F5 /* ExtensionImage.swift in Sources */,
-				045193672594DD1E00AE3635 /* SelectedViewContent.swift in Sources */,
 				04506CB623EAF89C002944D1 /* RootViewController.swift in Sources */,
 				CE3FB92F2419550300B899F5 /* ConstInitVC.swift in Sources */,
 				CE42AF882405A70000259135 /* TopCell.swift in Sources */,

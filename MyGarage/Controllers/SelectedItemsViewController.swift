@@ -146,7 +146,7 @@ class SelectedItemsViewController: UIViewController {
         
         self.setupNavigationBarButton()
         self.setupInit()
-        if let choicePartNoNill = CoreDataManager.sharedManager.fetchAllChoisePart() {
+        if let choicePartNoNill = CoreDataManager.sharedManager.fetchAllChoicePart() {
             self.choiceParts = choicePartNoNill
         }
         
@@ -157,24 +157,15 @@ class SelectedItemsViewController: UIViewController {
           super.viewWillAppear(animated)
         
         self.saveAndClearButton()
-        self.selectedItemsTableView!.reloadData()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lineWiev0"), object: nil)
-        
+        DispatchQueue.main.async {
+            self.selectedItemsTableView!.reloadData()
+        }
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "lineWiev0"), object: nil)
       }
     
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.setToolbarHidden(true, animated: true)
         if boolForTab == false {
- //          tabBarController?.setTabBarVisible(visible: true, animated: true)
- //        navigationController!.toolBarHeight(visible: true, animated: true)
-            
-//            UIView.animate(withDuration: 0.2, animations: {
-//
-//                 self.tabBarController?.tabBar.isHidden = false
-//                   }) { ( _ ) in
-//                       self.tabBarController?.tabBar.alpha = 1
-//            }
-//           tabBarController?.tabBar.tabsVisiblti(true)
             boolForTab = true
         }
     }
@@ -194,10 +185,6 @@ class SelectedItemsViewController: UIViewController {
         //       navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-//    @objc func backButton() {
-//        AppDelegate.shared.rootViewController.switchToStartController()
-//    }
-    
     private func addTable() {
         selectedItemsTableView = UITableView()
         selectedItemsTableView!.dataSource = self
@@ -208,8 +195,6 @@ class SelectedItemsViewController: UIViewController {
         
         
         view.addSubview(selectedItemsTableView!)
-//        view.addSubview(toolBar)
-   //     view.addSubview(clearChoiceButton)
         
         selectedItemsTableView!.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         selectedItemsTableView!.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -254,12 +239,12 @@ class SelectedItemsViewController: UIViewController {
                 let sellerTextField = "Other"
                 CoreDataManager.sharedManager.updateChoisePart(count: self.countTextField2.text!, price: self.priceTextField2.text!, seller: sellerTextField, choicePart: self.choiceParts![(myIndexPatch?.row)!])
             }
-            //                                }
-            //                            }
         }
-        if let choisePart = CoreDataManager.sharedManager.fetchAllChoisePart() {
+        if let choisePart = CoreDataManager.sharedManager.fetchAllChoicePart() {
             self.choiceParts = choisePart
-            self.selectedItemsTableView!.reloadData()
+            DispatchQueue.main.async {
+                self.selectedItemsTableView!.reloadData()
+            }
         }
         self.saveAndClearButton()
         self.viewShow2.removeFromSuperview()
@@ -279,9 +264,7 @@ class SelectedItemsViewController: UIViewController {
     }
     
     @objc func refreshTable(notification: Notification) {
-        
         print("Received Notification")
-      //  self.reloadMyTable()
     }
     
     private func saveAndClearButton() {
@@ -319,7 +302,7 @@ class SelectedItemsViewController: UIViewController {
             
             DispatchQueue.main.async {
                 CoreDataManager.sharedManager.deleteAllChoisePart()
-                self.choiceParts = CoreDataManager.sharedManager.fetchAllChoisePart()
+                self.choiceParts = CoreDataManager.sharedManager.fetchAllChoicePart()
                 self.navigationItem.rightBarButtonItems?.first?.isEnabled = false
                 self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
  //               self.toolBar.items?.first?.isEnabled = false
@@ -333,7 +316,7 @@ class SelectedItemsViewController: UIViewController {
     @objc func clearChoise(_ sender: UIButton) {
         DispatchQueue.main.async {
             CoreDataManager.sharedManager.deleteAllChoisePart()
-            self.choiceParts = CoreDataManager.sharedManager.fetchAllChoisePart()
+            self.choiceParts = CoreDataManager.sharedManager.fetchAllChoicePart()
             self.navigationItem.rightBarButtonItems?.first?.isEnabled = false
             self.navigationItem.rightBarButtonItems?.last?.isEnabled = false
             self.isSaveble = false
@@ -357,17 +340,11 @@ class SelectedItemsViewController: UIViewController {
             var str: String = ""
             for i in text {
                 var dyct = gDyctionaryTranslate
-                
                 if let s = dyct.removeValue(forKey: i) {
                     str.append(s)
                 } else {
                     str.append("_")
                 }
-                
-    //            guard let st = dyct.removeValue(forKey: i) else { continue }
-    //            str.append(st)
-                    
-                
             }
             return str
         }
@@ -397,27 +374,40 @@ extension SelectedItemsViewController: UITableViewDataSource, UITableViewDelegat
             }
           
         }
-//        cell.accessoryType = .detailButton
-//        cell.tintColor = #colorLiteral(red: 0.01087320689, green: 0.5540488362, blue: 0.8131138682, alpha: 1)
-  //      cell.accessoryView = UIImageView(image: UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(scale: .large)))
-       
-        cell.backgroundColor = indexPath.row%2 == 0 ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
- //       cell.accessoryView = UIImageView(image: UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(scale: .large)))
-    
+        cell.backgroundColor = .white
         return cell
     }
     
     //MARK: UICollectionViewDelegate
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        CoreDataManager.sharedManager.deleteChoisePart(choiceParts[indexPath.row])
-        self.choiceParts = CoreDataManager.sharedManager.fetchAllChoisePart()
-        self.selectedItemsTableView!.reloadData()
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        CoreDataManager.sharedManager.deleteChoisePart(choiceParts[indexPath.row])
+//        self.choiceParts = CoreDataManager.sharedManager.fetchAllChoicePart()
+//        DispatchQueue.main.async {
+//            self.selectedItemsTableView!.reloadData()
+//        }
+//        if self.choiceParts.count == 0 {
+//            navigationItem.rightBarButtonItems?.first?.isEnabled = false
+//            navigationItem.rightBarButtonItems?.last?.isEnabled = false
+//        }
+//        self.saveAndClearButton()
+//    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            CoreDataManager.sharedManager.deleteChoisePart(self.choiceParts[indexPath.row])
+            self.choiceParts = CoreDataManager.sharedManager.fetchAllChoicePart()
+            DispatchQueue.main.async {
+                self.selectedItemsTableView!.reloadData()
+            }
+        }
         if self.choiceParts.count == 0 {
             navigationItem.rightBarButtonItems?.first?.isEnabled = false
             navigationItem.rightBarButtonItems?.last?.isEnabled = false
         }
         self.saveAndClearButton()
+        return UISwipeActionsConfiguration(actions: [action])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
