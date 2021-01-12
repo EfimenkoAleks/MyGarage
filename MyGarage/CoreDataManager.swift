@@ -5,6 +5,7 @@
 //  Created by mac on 04.02.2020.
 //  Copyright © 2020 mac. All rights reserved.
 //
+// https://habr.com/ru/post/436510/
 
 import Foundation
 import CoreData
@@ -47,51 +48,52 @@ class CoreDataManager {
     
     func saveCar(image: Data, name: String, subName: String, number : String, bool: Bool, masiv: [[String]]?) {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Car", in: managedContext)!
-        
-        let car = NSManagedObject(entity: entity, insertInto: managedContext)
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Car", in: context)!
+        let car = NSManagedObject(entity: entity, insertInto: context)
         
         car.setValue(image, forKey: "image")
         car.setValue(name, forKeyPath: "name")
         car.setValue(subName, forKeyPath: "subName")
         car.setValue(number, forKey: "number")
         car.setValue(bool, forKey: "keySave")
- //       car.setValue(true, forKey: "keySave")
-        
+        //       car.setValue(true, forKey: "keySave")
         if let masiv = masiv {
             for mas in masiv {
                 self.updateCar(property: mas.first!, date: mas.last!, car: car as! Car)
             }
         }
-       
+        guard let user = currentUserConst else { return }
+        let userSaved = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        userSaved?.addToSetCar(car as! Car)
         do {
-            try managedContext.save()
+            try context.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
- //----------------
-    func insertCar(image: Data, name: String, subName: String, number : String)->Car? {
-        
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        let entity = NSEntityDescription.entity(forEntityName: "Car", in: managedContext)!
-        
-        let car = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        car.setValue(name, forKeyPath: "name")
-        car.setValue(number, forKeyPath: "number")
-        car.setValue(subName, forKey: "subName")
-        
-        do {
-            try managedContext.save()
-            return car as? Car
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-            return nil
-        }
-    }
+    
+//    func insertCar(image: Data, name: String, subName: String, number : String) -> Car? {
+//
+//        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+//
+//        let entity = NSEntityDescription.entity(forEntityName: "Car", in: context)!
+//
+//        let car = NSManagedObject(entity: entity, insertInto: context)
+//
+//        car.setValue(image, forKey: "image")
+//        car.setValue(name, forKeyPath: "name")
+//        car.setValue(number, forKeyPath: "number")
+//        car.setValue(subName, forKey: "subName")
+//
+//        do {
+//            try context.save()
+//            return car as? Car
+//        } catch let error as NSError {
+//            print("Could not save. \(error), \(error.userInfo)")
+//            return nil
+//        }
+//    }
     
     func updateCar(name: Data?, subName: String?, number : String?, bool: Bool?, car : Car) {
         
@@ -109,9 +111,6 @@ class CoreDataManager {
         if let subName = subName {
             car.setValue(subName, forKey: "subName")
         }
-//            print("\(String(describing: car.value(forKey: "name")))")
-//            print("\(String(describing: car.value(forKey: "ssn")))")
-        
             do {
                 try context.save()
                 print("UpdateCar saved!")
@@ -128,11 +127,7 @@ class CoreDataManager {
         car.setValue(bool, forKey: "keySave")
         
         let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        //let carDetail = self.saveCarDetail(property)
-        
         let entity = NSEntityDescription.entity(forEntityName: "CarDetail", in: context)!
-        
         let carDetail = NSManagedObject(entity: entity, insertInto: context)
         
         carDetail.setValue(property, forKeyPath: "propertyCar")
@@ -151,120 +146,192 @@ class CoreDataManager {
         
     }
     
-    func updateCar(property: String, date: String, car : Car) {
-        
+    private func updateCar(property: String, date: String, car : Car) {
+
         let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
+
         //let carDetail = self.saveCarDetail(property)
-        
+
         let entity = NSEntityDescription.entity(forEntityName: "CarDetail", in: context)!
-        
+
         let carDetail = NSManagedObject(entity: entity, insertInto: context)
-        
+
         carDetail.setValue(property, forKeyPath: "propertyCar")
         carDetail.setValue(date, forKeyPath: "dateOfBirth")
-        
+
         car.addToCarDetail(carDetail as! CarDetail)
-        
+
         do {
             try context.save()
             print("UpdateCar saved!")
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
         } catch {
-            
+
         }
-        
+
     }
     
-    func delete( _ car : Car){
+    func deleteCar(_ car : Car){
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
         
-            managedContext.delete(car)
-        
+        guard let user = currentUserConst else { return }
+        let userSaved = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        userSaved?.removeFromSetCar(car)
+//            context.delete(car)
         do {
-            try managedContext.save()
+            try context.save()
         } catch {
         }
     }
     
     func fetchAllCars() -> [Car]?{
  
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Car")
-        
-        do {
-            let car = try managedContext.fetch(fetchRequest)
-            return car as? [Car]
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-            return nil
-        }
-    }
-    
-    func delete(number: String) -> [Car]? {
+        guard let user = currentUserConst else { return nil }
+        let userSaved = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        let arrayCar = userSaved?.setCar?.allObjects
        
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-      
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Car")
+        return arrayCar as? [Car]
+    }
+    
+//    func delete(number: String) -> [Car]? {
+//
+//        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+//
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Car")
+//
+//        fetchRequest.predicate = NSPredicate(format: "name == %i" ,number)
+//        do {
+//
+//            let item = try context.fetch(fetchRequest)
+//            var removedCar = [Car]()
+//            for i in item {
+//                context.delete(i)
+//                try context.save()
+//                removedCar.append(i as! Car)
+//            }
+//            return removedCar
+//
+//        } catch let error as NSError {
+//            print("Could not fetch. \(error), \(error.userInfo)")
+//            return nil
+//        }
+//
+//    }
+//---------------------------------------------------------------------------
+    //MARK: CarDetail
+    
+    func saveCarDetail(_ name: String) -> CarDetail {
         
-        fetchRequest.predicate = NSPredicate(format: "name == %i" ,number)
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "CarDetail", in: context)!
+        let carDetail = NSManagedObject(entity: entity, insertInto: context)
+        
+        carDetail.setValue(name, forKeyPath: "propertyCar")
+        carDetail.setValue(HelperMethods.shared.curentDate(), forKeyPath: "dateOfBirth")
+        
         do {
-           
-            let item = try managedContext.fetch(fetchRequest)
-            var removedCar = [Car]()
-            for i in item {
-                managedContext.delete(i)
-                try managedContext.save()
-                removedCar.append(i as! Car)
-            }
-            return removedCar
+            try context.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        return carDetail as! CarDetail
+    }
+
+    func deleteCarDetail(_ carDetail : CarDetail) {
+        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        context.delete(carDetail)
+        do {
+            try context.save()
+        } catch {
+        }
+    }
+    //-------------------------------------------------------------------------------------------
+
+//MARK: Create user
+    func createUserForPart() {
+        guard let user = currentUserConst else { return }
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let fetchAllUserParts = NSFetchRequest<NSManagedObject>(entityName: "UserChoicePart")
+//        guard let fetch = fetchAllUserParts.propertiesToFetch else { return }
+        
+        if fetchAllUserParts.propertiesToFetch == nil {
             
+            let entity = NSEntityDescription.entity(forEntityName: "UserChoicePart", in: context)!
+            let userPart = NSManagedObject(entity: entity, insertInto: context)
+            userPart.setValue(user.name! + user.password!, forKeyPath: "keyUser")
+            
+//            let userPart = UserChoicePart(context: managedContext)
+//            userPart.keyUser = user.name! + user.password!
+            
+        } else {
+            return
+        }
+            do {
+                try context.save()
+                
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+    }
+// Fetch user
+    private func fetchAllUser(userName: String) -> [UserChoicePart]?{
+      
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        
+        let fetchAllUserParts = NSFetchRequest<NSManagedObject>(entityName: "UserChoicePart")
+        fetchAllUserParts.predicate = NSPredicate(format: "SELF.keyUser = %@", userName)
+        do {
+            let userPart = try context.fetch(fetchAllUserParts)
+            return userPart as? [UserChoicePart]
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             return nil
         }
-        
     }
-    
     //-------------------------------------------------------------------------------------------
     //MARK: ChoicePart
     
-    func fetchAllChoisePart() -> [ChoicePart]?{
+// По user мы возвращаем all ChoicePart
+    func fetchAllChoicePart() -> [ChoicePart]? {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ChoicePart")
-        
-        do {
-            let part = try managedContext.fetch(fetchRequest)
-            return part as? [ChoicePart]
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+        guard let user = currentUserConst else { return nil}
+        let userParts = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        if userParts?.setChoicePart?.allObjects != nil {
+            return (userParts?.setChoicePart?.allObjects)! as? [ChoicePart]
+        } else {
             return nil
         }
+    }
+// По user мы возвращаем all MasivChoicePart
+    func fetchAllMasivChoicePart() -> [MasivChoiceParts]? {
         
+        guard let user = currentUserConst else { return nil}
+        let userMasivParts = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        if userMasivParts?.setMasivCP?.allObjects != nil {
+            return (userMasivParts?.setMasivCP?.allObjects)! as? [MasivChoiceParts]
+        } else {
+            return nil
+        }
     }
     
     func saveChoicePart(name: String, count: String, price: String?, seller: String) {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "ChoicePart", in: managedContext)!
-        
-        let choicePart = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        choicePart.setValue(name, forKeyPath: "name")
-        choicePart.setValue(count, forKeyPath: "count")
-        choicePart.setValue(seller, forKey: "seller")
-       
+        guard let user = currentUserConst else { return }
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let userCP = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        let choicePart = ChoicePart(context: context)
+        choicePart.name = name
+        choicePart.count = count
+        choicePart.seller = seller
         if let price = price {
-            choicePart.setValue(price, forKey: "price")
+            choicePart.price = price
         }
-        
+        userCP?.addToSetChoicePart(choicePart)
         do {
-            try managedContext.save()
+            try context.save()
             
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
@@ -274,70 +341,61 @@ class CoreDataManager {
     func updateChoisePart(count: String, price : String, seller: String, choicePart : ChoicePart) {
         
         let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        choicePart.setValue(count, forKey: "count")
-        choicePart.setValue(price, forKey: "price")
-        choicePart.setValue(seller, forKey: "seller")
-       
+        choicePart.count = count
+        choicePart.seller = seller
+        choicePart.price = price
         do {
             try context.save()
             print("saved!")
-        } catch let error as NSError  {
+        } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
-        } catch {
-            
         }
-        
     }
-    
+
     func deleteChoisePart( _ choisePart : ChoicePart) {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        managedContext.delete(choisePart)
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        guard let user = currentUserConst else { return }
+        let userCP = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        userCP?.removeFromSetChoicePart(choisePart)
+        context.delete(choisePart)
         do {
-            try managedContext.save()
+            try context.save()
         } catch {
         }
     }
     
     func deleteAllChoisePart() {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ChoicePart")
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        guard let user = currentUserConst else { return }
+        let userCP = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        var arrayCP = userCP?.setChoicePart?.allObjects
+        arrayCP?.removeAll()
+        let setCP = NSSet.init(array: arrayCP!)
+        userCP?.setChoicePart = setCP
         do {
-            let parts = try managedContext.fetch(fetchRequest)
-            for part in parts {
-                managedContext.delete(part)
-            }
-            try managedContext.save()
+            try context.save()
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
-
         }
     }
     
     //------------------------------------------------------------------------------------
     //MARK: MasivChoiceParts
     
-    func insertMasivChoiseParts() -> MasivChoiceParts? {
+    private func insertMasivChoiseParts() -> MasivChoiceParts? {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        let entity = NSEntityDescription.entity(forEntityName: "MasivChoiceParts", in: managedContext)!
-        
-        let masivChoiceParts = NSManagedObject(entity: entity, insertInto: managedContext)
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "MasivChoiceParts", in: context)!
+        let masivChoiceParts = NSManagedObject(entity: entity, insertInto: context)
         let curentDate = HelperMethods.shared.curentDate()
 //        print(HelperMethods.shared.dateFirstDay())
         masivChoiceParts.setValue(curentDate, forKeyPath: "dateCreation")
         masivChoiceParts.setValue(false, forKey: "expanded")
         
         do {
-            try managedContext.save()
+            try context.save()
             return masivChoiceParts as? MasivChoiceParts
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
@@ -347,27 +405,21 @@ class CoreDataManager {
     
     func saveMasivChoiseParts(masiv: [ChoicePart]) {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
         let masivCP = CoreDataManager.sharedManager.insertMasivChoiseParts()
-        
         for choicePart in masiv {
-            
-            let entity = NSEntityDescription.entity(forEntityName: "ForSaveChoicePart", in: managedContext)!
-            let forChoicePart = NSManagedObject(entity: entity, insertInto: managedContext)
 
+            let entity = NSEntityDescription.entity(forEntityName: "ForSaveChoicePart", in: context)!
+            let forChoicePart = NSManagedObject(entity: entity, insertInto: context)
             forChoicePart.setValue(choicePart.name, forKeyPath: "name")
             forChoicePart.setValue(choicePart.count, forKeyPath: "count")
             forChoicePart.setValue(choicePart.price, forKey: "price")
             forChoicePart.setValue(choicePart.seller, forKey: "seller")
-            
+
             masivCP?.addToForSaveCP(forChoicePart as! ForSaveChoicePart)
-            
         }
-        
         do {
-            try managedContext.save()
-            
+            try context.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -375,12 +427,11 @@ class CoreDataManager {
     
     func fetchAllMasivChoiseParts() -> [MasivChoiceParts]? {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "MasivChoiceParts")
         
         do {
-            let allMasivChoiseParts = try managedContext.fetch(fetchRequest)
+            let allMasivChoiseParts = try context.fetch(fetchRequest)
             return allMasivChoiseParts as? [MasivChoiceParts]
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
@@ -390,26 +441,34 @@ class CoreDataManager {
     
     func deleteMasivChoiseParts( _ masivChoisePart : MasivChoiceParts) {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        managedContext.delete(masivChoisePart)
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+        guard let user = currentUserConst else { return }
+        let userMasivPart = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        userMasivPart?.removeFromSetMasivCP(masivChoisePart)
+ //       context.delete(masivChoisePart)
         do {
-            try managedContext.save()
+            try context.save()
         } catch {
         }
     }
     
     func deleteAllMasivChoiseParts() {
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "MasivChoiceParts")
+        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "MasivChoiceParts")
+        guard let user = currentUserConst else { return }
+        let userMasivPart = self.fetchAllUser(userName: user.name! + user.password!)?.first
+        guard let arrayMP =  userMasivPart?.setMasivCP?.allObjects else { return }
+        var arrayMasivPart = arrayMP
+        arrayMasivPart.removeAll()
+        userMasivPart?.setMasivCP = NSSet(array: arrayMasivPart)
         
         do {
-            let masivChoiceParts = try managedContext.fetch(fetchRequest)
-            for part in masivChoiceParts {
-                managedContext.delete(part)
-            }
-            try managedContext.save()
+//            let masivChoiceParts = try context.fetch(fetchRequest)
+//            for part in masivChoiceParts {
+//                context.delete(part)
+//            }
+            try context.save()
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             
@@ -417,51 +476,20 @@ class CoreDataManager {
     }
     
     //-----------------------------------------------------------------------------------
-    //MARK: CarDetail
-    
-    func saveCarDetail(_ name: String) -> CarDetail {
-        
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "CarDetail", in: managedContext)!
-        
-        let carDetail = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        carDetail.setValue(name, forKeyPath: "propertyCar")
-        carDetail.setValue(HelperMethods.shared.curentDate(), forKeyPath: "dateOfBirth")
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        return carDetail as! CarDetail
-    }
-
-    func deleteCarDetail( _ carDetail : CarDetail) {
-        
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
-        managedContext.delete(carDetail)
-        
-        do {
-            try managedContext.save()
-        } catch {
-        }
-    }
     
     //MARK: KeyForParse
     
     func saveKey(key: Int) {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "KeyForParse", in: managedContext)!
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
+//        let entity = NSEntityDescription.entity(forEntityName: "KeyForParse", in: context)!
+//        let choicePart = NSManagedObject(entity: entity, insertInto: context)
+//        choicePart.setValue(key, forKeyPath: "key")
         
-        let choicePart = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        choicePart.setValue(key, forKeyPath: "key")
-                
+        let keyPart = KeyForParse(context: context)
+        keyPart.key = Int32(key)
         do {
-            try managedContext.save()
-            
+            try context.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -469,13 +497,11 @@ class CoreDataManager {
     
     func fetchKey() -> [KeyForParse]? {
         
-        let managedContext = CoreDataManager.sharedManager.persistentContainer.viewContext
-        
+        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "KeyForParse")
-        
         do {
-            let allMasivChoiseParts = try managedContext.fetch(fetchRequest)
-            return allMasivChoiseParts as? [KeyForParse]
+            let allKeyForParse = try context.fetch(fetchRequest)
+            return allKeyForParse as? [KeyForParse]
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             return nil

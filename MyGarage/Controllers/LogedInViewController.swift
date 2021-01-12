@@ -70,11 +70,6 @@ class LogedInViewController: UIViewController {
         
         self.nameTextField.text = ""
         self.passwordTextField.text = ""
-        
-//        let image = UIImage(named: "back")
-//        let imageTemp = image?.withRenderingMode(.alwaysTemplate)
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: imageTemp, style: .plain, target: self, action: #selector(LogedInViewController.backButton))
-        
     }
     
     @objc func dismisButton() {
@@ -124,6 +119,7 @@ class LogedInViewController: UIViewController {
                 UserDefaults.standard.set(self.nameTextField.text, forKey: "kUserName")
                 UserDefaults.standard.set(self.passwordTextField.text, forKey: "kUserPassword")
 //                currentUserConst = User(name: self.nameTextField.text!, password: self.passwordTextField.text!)
+//                CoreDataManager.sharedManager.createUserForPart()
                 self.delegate?.onButtonTap()
                 self.dismiss(animated: true, completion: nil)
                 

@@ -85,17 +85,20 @@ class PartsViewController: UIViewController, MenuVCProtocol, BageDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        guard let arrayCount = CoreDataManager.sharedManager.fetchAllChoisePart() else { return }
-        self.countPart = arrayCount.count
-        self.cart!.setBadge(with: self.countPart)
+        guard let arrayCount = CoreDataManager.sharedManager.fetchAllChoicePart() else { return }
+        DispatchQueue.main.async {
+            self.countPart = arrayCount.count
+            self.cart!.setBadge(with: self.countPart)
+        }
     }
     // Текущий юзер
     private func setUser() {
         
         let name = UserDefaults.standard.value(forKey: "kUserName") as! String
         let password = UserDefaults.standard.value(forKey: "kUserPassword") as! String
-        
+
         currentUserConst = User(name: name, password: password)
+        CoreDataManager.sharedManager.createUserForPart()
     }
     
     private func setupInit() {
@@ -272,7 +275,7 @@ class PartsViewController: UIViewController, MenuVCProtocol, BageDelegate {
             name = itemsArray[indexPath.item].partName
         }
         // проверка сохранён обьект или нет
-        let saver = CoreDataManager.sharedManager.fetchAllChoisePart()
+        let saver = CoreDataManager.sharedManager.fetchAllChoicePart()
         for nameSaver in saver! {
             if nameSaver.name == name {
                 return

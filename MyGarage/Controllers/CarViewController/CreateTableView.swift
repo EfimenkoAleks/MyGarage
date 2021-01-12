@@ -42,7 +42,7 @@ extension CarViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
-        CoreDataManager.sharedManager.delete(cars[indexPath.row])
+        CoreDataManager.sharedManager.deleteCar(cars[indexPath.row])
         self.cars = CoreDataManager.sharedManager.fetchAllCars()!
         self.carsTableView!.reloadData()
     }
